@@ -1,0 +1,377 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WriteWithUsBand from '../components/WriteWithUsBand.astro';
+import Ornament from '../components/Ornament.astro';
+---
+
+<BaseLayout
+  title="Newsletter — Sankoré"
+  description="Recevez chaque dimanche la synthèse de la semaine en IA, transformation digitale et gestion de projet en Afrique francophone."
+>
+
+  <section class="nl-page">
+    <div class="nl-inner">
+
+      <p class="eyebrow">La lettre Sankoré</p>
+      <h1>Recevez Sankoré chaque <em>dimanche</em></h1>
+      <p class="lead-text">
+        Une lecture, dix minutes. L'essentiel de la semaine en IA, transformation
+        digitale et gestion de projet en Afrique francophone.
+      </p>
+
+      <!-- Formulaire d'inscription -->
+      <div class="form-block">
+        <h2>S'abonner gratuitement</h2>
+        <p>Plus de 500 cadres et entrepreneurs nous lisent déjà. Désabonnement
+        en un clic, jamais de spam.</p>
+
+        <form id="nlForm" novalidate>
+          <div class="row">
+            <input type="text"  name="firstname" placeholder="Prénom" autocomplete="given-name" />
+            <input type="text"  name="lastname"  placeholder="Nom"    autocomplete="family-name" />
+          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Adresse email"
+            required
+            autocomplete="email"
+            aria-label="Votre adresse e-mail"
+          />
+          <button type="submit">Je m'abonne</button>
+          <p class="small">En vous inscrivant, vous acceptez de recevoir notre lettre hebdomadaire.</p>
+        </form>
+
+        <p class="error" id="nlError" aria-live="polite"></p>
+        <p class="success" id="nlSuccess" aria-live="polite">
+          Bienvenue ! Votre première lettre arrive dimanche.
+        </p>
+      </div>
+
+      <Ornament />
+
+      <!-- 3 raisons de s'abonner -->
+      <div class="reasons-grid">
+        <div class="reason">
+          <p class="num">i.</p>
+          <h3>Une synthèse, pas un flux</h3>
+          <p>Au lieu de tenter de tout suivre dans la semaine, vous recevez
+          l'essentiel filtré et hiérarchisé — une seule lecture suffit.</p>
+        </div>
+        <div class="reason">
+          <p class="num">ii.</p>
+          <h3>Pensé pour votre réalité</h3>
+          <p>Connectivité parfois capricieuse, budgets serrés, équipes hybrides.
+          Chaque recommandation est filtrée par les contraintes du terrain
+          ouest-africain.</p>
+        </div>
+        <div class="reason">
+          <p class="num">iii.</p>
+          <h3>Une réflexion personnelle</h3>
+          <p>Chaque édition se termine par une note plus libre — ce que la semaine
+          nous a appris sur l'évolution du métier, l'écosystème, le continent.</p>
+        </div>
+      </div>
+
+      <!-- Aperçu d'une édition -->
+      <div class="preview-block">
+        <p class="preview-label">Exemple d'édition · 14 avril 2026</p>
+        <h3>Cette semaine : l'AI Act se durcit, Mistral lance son agent
+        francophone, et trois leçons d'un échec à Dakar</h3>
+        <p class="preview-meta">Édition n°12 · 9 min de lecture</p>
+        <p>
+          Bonjour à toutes et tous, Cette semaine, l'actualité a été dense.
+          La Commission européenne a publié ses lignes directrices sur
+          l'application sectorielle de l'AI Act, et le moins qu'on puisse dire
+          est que les acteurs africains qui exportent vers l'Europe ont des
+          décisions à prendre rapidement. Ailleurs, Mistral a annoncé un agent
+          francophone optimisé pour les marchés africains…
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <WriteWithUsBand />
+
+</BaseLayout>
+
+<script>
+  const form    = document.getElementById('nlForm')    as HTMLFormElement | null;
+  const success = document.getElementById('nlSuccess');
+  const errorEl = document.getElementById('nlError');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd       = new FormData(form);
+    const email    = (fd.get('email')     as string ?? '').trim();
+    const prenom   = (fd.get('firstname') as string ?? '').trim();
+    const nom      = (fd.get('lastname')  as string ?? '').trim();
+    if (!email) return;
+
+    const btn = form.querySelector('button') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Envoi…';
+    if (errorEl) errorEl.style.display = 'none';
+
+    try {
+      const res  = await fetch('/api/subscribe', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email, prenom, nom }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = "Je m'abonne";
+        if (errorEl) {
+          errorEl.textContent = data.error ?? 'Une erreur est survenue.';
+          errorEl.style.display = 'block';
+        }
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = "Je m'abonne";
+      if (errorEl) {
+        errorEl.textContent = 'Connexion impossible. Vérifiez votre réseau.';
+        errorEl.style.display = 'block';
+      }
+    }
+  });
+</script>
+
+<style>
+  .nl-page {
+    padding: 80px 0;
+  }
+
+  .nl-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 32px;
+    text-align: center;
+  }
+
+  .nl-inner :global(.eyebrow) {
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  h1 em { font-style: italic; color: var(--terracotta); }
+
+  .lead-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  /* Form block */
+  .form-block {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px;
+    margin-bottom: 60px;
+    position: relative;
+    text-align: left;
+  }
+
+  .form-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+  }
+
+  .form-block h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 26px;
+    margin-bottom: 8px;
+    letter-spacing: -0.018em;
+  }
+
+  .form-block > p {
+    color: rgba(244, 237, 224, 0.7);
+    font-size: 14.5px;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  form input {
+    padding: 13px 16px;
+    background: rgba(244, 237, 224, 0.08);
+    border: 1px solid rgba(244, 237, 224, 0.15);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  form input::placeholder { color: rgba(244, 237, 224, 0.4); }
+  form input:focus { border-color: var(--gold); }
+
+  form button {
+    background: var(--terracotta);
+    color: var(--paper);
+    padding: 14px 28px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  form button:hover    { background: var(--terracotta-deep); }
+  form button:disabled { opacity: 0.6; cursor: wait; }
+
+  .small {
+    font-size: 12px;
+    color: rgba(244, 237, 224, 0.5);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .error {
+    display: none;
+    font-size: 13px;
+    color: #e8836a;
+    margin-top: 8px;
+    font-family: var(--sans);
+    line-height: 1.5;
+  }
+
+  .success {
+    display: none;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--gold);
+    margin-top: 16px;
+  }
+
+  /* Raisons */
+  .reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    text-align: left;
+    margin-bottom: 60px;
+  }
+
+  .reason {
+    border-top: 2px solid var(--terracotta);
+    padding-top: 24px;
+  }
+
+  .num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .reason h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    letter-spacing: -0.015em;
+  }
+
+  .reason p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* Aperçu */
+  .preview-block {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    padding: 40px;
+    text-align: left;
+    margin-top: 40px;
+  }
+
+  .preview-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 18px;
+    font-weight: 500;
+    font-family: var(--sans);
+  }
+
+  .preview-block h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    letter-spacing: -0.015em;
+  }
+
+  .preview-meta {
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+
+  .preview-block p:last-child {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    h1 { font-size: 40px; }
+    .lead-text { font-size: 18px; }
+    .reasons-grid { grid-template-columns: 1fr; gap: 24px; }
+    .row { grid-template-columns: 1fr; }
+    .form-block { padding: 32px 24px; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .nl-inner { padding: 0 20px; }
+  }
+</style>

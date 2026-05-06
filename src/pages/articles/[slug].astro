@@ -1,0 +1,678 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { InferGetStaticPropsType } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReadingProgress from '../../components/ReadingProgress.astro';
+import ContinueReading from '../../components/ContinueReading.astro';
+import Illustration from '../../components/Illustration.astro';
+import Ornament from '../../components/Ornament.astro';
+import { formatDate } from '../../utils/formatDate';
+import { readingTime } from '../../utils/readingTime';
+import { CATEGORY_LABELS } from '../../utils/categories';
+
+export const getStaticPaths = async () => {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return articles.map(entry => ({
+    params: { slug: entry.slug },
+    props:  { entry },
+  }));
+};
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const {
+  title, dek, excerpt, publishedAt, updatedAt, category,
+  illustration, illustrationProps, author,
+} = entry.data;
+
+const catLabel  = CATEGORY_LABELS[category] ?? category;
+const catUrl    = `/categories/${category}`;
+const minutes   = readingTime(entry.body);
+const dateStr   = formatDate(publishedAt);
+const siteUrl   = import.meta.env.PUBLIC_SITE_URL ?? 'https://sankore.africa';
+const pageUrl   = `${siteUrl}/articles/${entry.slug}`;
+
+/* ── Articles liés ─────────────────────────────────────── */
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+
+const related: CollectionEntry<'articles'>[] = allArticles
+  .filter(a => a.slug !== entry.slug)
+  .sort((a, b) => {
+    const score = (x: CollectionEntry<'articles'>) =>
+      x.data.category === category ? 1 : 0;
+    return (score(b) - score(a)) ||
+           b.data.publishedAt.getTime() - a.data.publishedAt.getTime();
+  })
+  .slice(0, 3);
+
+/* ── Prochain article (ContinueReading) ────────────────── */
+const sorted = allArticles.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+const idx         = sorted.findIndex(a => a.slug === entry.slug);
+const nextArticle = sorted[idx + 1] as CollectionEntry<'articles'> | undefined;
+
+/* ── JSON-LD Article ───────────────────────────────────── */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: excerpt,
+  author: { '@type': 'Person', name: author.name },
+  datePublished: publishedAt.toISOString(),
+  dateModified:  (updatedAt ?? publishedAt).toISOString(),
+  image: `${siteUrl}/og-default.png`,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Sankoré',
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/favicon.svg` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+};
+---
+
+<BaseLayout
+  title={`${title} — Sankoré`}
+  description={excerpt}
+  canonical={pageUrl}
+  type="article"
+>
+  <!-- JSON-LD dans le <head> -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Barre de progression lecture -->
+  <ReadingProgress />
+
+  <!-- ══ EN-TÊTE ARTICLE ══════════════════════════════════ -->
+  <header class="article-header">
+    <div class="container-narrow">
+
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="/">Accueil</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <a href={catUrl}>{catLabel}</a>
+      </nav>
+
+      <span class="article-category-badge">{catLabel}</span>
+
+      <h1 class="article-title">{title}</h1>
+
+      {dek && <p class="article-dek">{dek}</p>}
+
+      <div class="article-meta">
+        <span class="art-author">Par {author.name}</span>
+        <span class="dot" aria-hidden="true"></span>
+        <time datetime={publishedAt.toISOString()}>{dateStr}</time>
+        <span class="dot" aria-hidden="true"></span>
+        <span>{minutes} min de lecture</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ══ ILLUSTRATION HERO PLEINE LARGEUR ════════════════ -->
+  <div class="article-feature" aria-hidden="true">
+    <Illustration
+      type={illustration}
+      number={illustrationProps?.number}
+    />
+  </div>
+
+  <!-- ══ CORPS MDX ════════════════════════════════════════ -->
+  <article class="article-body" id="articleBody">
+    <Content />
+  </article>
+
+  <Ornament />
+
+  <!-- ══ BLOC AUTEUR ══════════════════════════════════════ -->
+  <div class="author-block">
+    <div class="author-avatar" aria-hidden="true">{author.initial}</div>
+    <div class="author-info">
+      <h4>{author.name}</h4>
+      <p class="author-role">{author.role} · Sankoré</p>
+      <p>{author.bio}</p>
+    </div>
+  </div>
+
+  <!-- ══ CTA NEWSLETTER INLINE ════════════════════════════ -->
+  <div class="article-cta-newsletter">
+    <h4>Vous avez aimé cet article ?</h4>
+    <p>
+      Recevez les prochaines analyses chaque dimanche —
+      directement dans votre boîte.
+    </p>
+    <form class="cta-form" id="ctaForm" novalidate>
+      <input
+        type="email"
+        name="email"
+        placeholder="votre@email.com"
+        required
+        aria-label="Votre adresse e-mail"
+      />
+      <button type="submit">S'abonner</button>
+    </form>
+    <p class="cta-error" id="ctaError" aria-live="polite"></p>
+    <p class="cta-success" id="ctaSuccess" aria-live="polite">
+      Merci — à dimanche&nbsp;!
+    </p>
+  </div>
+
+  <!-- ══ BOUTONS PARTAGE ══════════════════════════════════ -->
+  <div class="article-end">
+    <a
+      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(pageUrl)}&title=${encodeURIComponent(title)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-btn linkedin"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      Partager sur LinkedIn
+    </a>
+
+    <button class="share-btn" data-share="copy" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+      </svg>
+      Copier le lien
+    </button>
+  </div>
+
+  <!-- ══ ARTICLES LIÉS ════════════════════════════════════ -->
+  {related.length > 0 && (
+    <section class="related-section">
+      <div class="container">
+        <h3>Articles <em>liés</em></h3>
+        <div class="related-grid">
+          {related.map(rel => {
+            const rCat     = CATEGORY_LABELS[rel.data.category] ?? rel.data.category;
+            const rMinutes = readingTime(rel.body);
+            return (
+              <a href={`/articles/${rel.slug}`} class="related-card">
+                <div class="related-illus">
+                  <Illustration
+                    type={rel.data.illustration}
+                    number={rel.data.illustrationProps?.number}
+                  />
+                </div>
+                <div class="related-content">
+                  <div class="related-meta">
+                    <span class="rel-cat">{rCat}</span>
+                    <span class="rel-dot" aria-hidden="true"></span>
+                    <span>{rMinutes} min</span>
+                  </div>
+                  <h4>{rel.data.title}</h4>
+                  <p>{rel.data.excerpt}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ══ ENCART FLOTTANT "LIRE ENSUITE" ══════════════════ -->
+  <ContinueReading next={nextArticle} />
+
+</BaseLayout>
+
+<!-- Copier le lien -->
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-share="copy"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        btn.textContent = '✓ Lien copié !';
+        setTimeout(() => {
+          btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Copier le lien`;
+        }, 2000);
+      } catch { /* clipboard API non disponible */ }
+    });
+  });
+</script>
+
+<!-- Newsletter CTA inline -->
+<script>
+  const form    = document.getElementById('ctaForm')    as HTMLFormElement | null;
+  const success = document.getElementById('ctaSuccess');
+  const errorEl = document.getElementById('ctaError');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (form.elements.namedItem('email') as HTMLInputElement)?.value?.trim();
+    if (!email) return;
+
+    const btn = form.querySelector('button') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Envoi…';
+    if (errorEl) errorEl.style.display = 'none';
+
+    try {
+      const res  = await fetch('/api/subscribe', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = "S'abonner";
+        if (errorEl) {
+          errorEl.textContent = data.error ?? 'Une erreur est survenue.';
+          errorEl.style.display = 'block';
+        }
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = "S'abonner";
+      if (errorEl) {
+        errorEl.textContent = 'Connexion impossible. Vérifiez votre réseau.';
+        errorEl.style.display = 'block';
+      }
+    }
+  });
+</script>
+
+<style>
+  /* ── En-tête ──────────────────────────────────────────── */
+  .article-header {
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    margin-bottom: 28px;
+  }
+
+  .breadcrumb a {
+    color: var(--ink-mute);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover { color: var(--terracotta); }
+
+  .sep {
+    margin: 0 8px;
+    color: var(--gold);
+  }
+
+  .article-category-badge {
+    display: inline-block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--terracotta);
+    margin-bottom: 24px;
+    font-weight: 500;
+    font-family: var(--sans);
+  }
+
+  .article-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 24px;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .article-dek {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto 40px;
+    font-weight: 300;
+  }
+
+  .article-meta {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.02em;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .art-author { color: var(--ink); font-weight: 500; }
+
+  .dot {
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── Illustration hero pleine largeur ─────────────────── */
+  .article-feature {
+    height: 380px;
+    background: var(--paper-3);
+    margin: 40px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .article-feature :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── Bloc auteur ──────────────────────────────────────── */
+  .author-block {
+    max-width: 680px;
+    margin: 60px auto;
+    padding: 32px;
+    background: var(--paper-2);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .author-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--paper-3);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--terracotta);
+    font-weight: 500;
+  }
+
+  .author-info h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .author-role {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+    font-family: var(--sans);
+  }
+
+  .author-info p:last-child {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ── CTA newsletter inline ────────────────────────────── */
+  .article-cta-newsletter {
+    max-width: 680px;
+    margin: 60px auto;
+    padding: 40px 32px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .article-cta-newsletter h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 12px;
+    letter-spacing: -0.015em;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .article-cta-newsletter p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .cta-form {
+    display: flex;
+    max-width: 420px;
+    margin: 0 auto;
+    gap: 8px;
+  }
+
+  .cta-form input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    background: var(--paper-2);
+    font-family: var(--sans);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    color: var(--ink);
+  }
+
+  .cta-form input:focus { border-color: var(--terracotta); }
+
+  .cta-form button {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 20px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .cta-form button:hover    { background: var(--terracotta); }
+  .cta-form button:disabled { opacity: 0.6; cursor: wait; }
+
+  .cta-error {
+    display: none;
+    font-size: 13px;
+    color: var(--terracotta);
+    margin-top: 8px;
+    font-family: var(--sans);
+    line-height: 1.5;
+  }
+
+  .cta-success {
+    display: none;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--gold);
+  }
+
+  /* ── Boutons partage ──────────────────────────────────── */
+  .article-end {
+    max-width: 680px;
+    margin: 40px auto 80px;
+    padding: 0 32px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .share-btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    padding: 12px 22px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    background: var(--paper-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .share-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .share-btn.linkedin {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .share-btn.linkedin:hover {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+  }
+
+  /* ── Articles liés ────────────────────────────────────── */
+  .related-section {
+    background: var(--paper-2);
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .related-section h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 28px;
+    margin-bottom: 32px;
+    letter-spacing: -0.018em;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .related-section h3 em { font-style: italic; }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    transition: transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .related-card:hover { transform: translateY(-3px); }
+
+  .related-illus {
+    aspect-ratio: 5 / 3;
+    background: var(--paper-3);
+    overflow: hidden;
+  }
+
+  .related-illus :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .related-content { padding: 20px; }
+
+  .related-meta {
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--ink-mute);
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  .rel-cat {
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+    font-size: 10px;
+  }
+
+  .rel-dot {
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .related-card h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .related-card p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ── Responsive ──────────────────────────────────────── */
+  @media (max-width: 880px) {
+    .related-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 720px) {
+    .article-title  { font-size: 36px; }
+    .article-dek    { font-size: 18px; }
+    .article-feature { height: 260px; margin: 24px 0 40px; }
+    .related-grid   { grid-template-columns: 1fr; }
+
+    .author-block {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cta-form { flex-direction: column; }
+    .cta-form button { width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .article-title { font-size: 28px; }
+    .article-header { padding: 40px 0 28px; }
+    .article-end { flex-direction: column; align-items: stretch; padding: 0 20px; }
+    .share-btn { justify-content: center; }
+  }
+</style>

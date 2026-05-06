@@ -1,0 +1,321 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterBand from '../components/NewsletterBand.astro';
+import WriteWithUsBand from '../components/WriteWithUsBand.astro';
+---
+
+<BaseLayout
+  title="À propos — Sankoré"
+  description="Un média indépendant, en français, pour les cadres et entrepreneurs ouest-africains qui veulent que l'intelligence artificielle serve leur métier."
+>
+
+  <!-- ══ HERO ═══════════════════════════════════════════ -->
+  <section class="about-hero">
+    <div class="about-hero-inner">
+      <p class="eyebrow">À propos de Sankoré</p>
+      <h1>
+        Comprendre et appliquer l'IA aux
+        <em>réalités africaines</em> du travail.
+      </h1>
+      <p class="mission">
+        Un média indépendant, en français, pour les cadres et entrepreneurs
+        ouest-africains qui veulent que l'intelligence artificielle serve leur
+        métier — pas l'inverse.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ POURQUOI SANKORÉ ═══════════════════════════════ -->
+  <section class="about-section">
+    <div class="about-section-inner">
+      <h2>Pourquoi <em>Sankoré</em></h2>
+      <p>
+        Le nom est emprunté à l'université de Sankoré de Tombouctou, l'une des
+        plus anciennes institutions du savoir au monde. Au XIV<sup>e</sup> siècle,
+        elle attirait des étudiants et des maîtres de tout le continent et
+        au-delà. Elle rappelle qu'avant d'être consommatrice de technologies
+        importées, l'Afrique a été productrice de savoir, et qu'elle peut
+        l'être à nouveau.
+      </p>
+      <p>
+        Aujourd'hui, sur le continent, l'IA et la transformation digitale
+        arrivent souvent comme des vagues venues d'ailleurs : produits
+        américains, méthodes parisiennes, contenus traduits. Sankoré propose
+        une troisième voie : comprendre, adapter, parfois réinventer.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ NOS QUATRE PILIERS ════════════════════════════ -->
+  <section class="about-section">
+    <div class="about-section-inner">
+      <h2>Nos quatre <em>piliers</em></h2>
+      <div class="pillar-grid">
+        <div class="pillar-card">
+          <h3>IA au travail</h3>
+          <p>
+            Comment un chef de projet, un commercial, un responsable RH utilise
+            concrètement les outils d'IA générative dans son quotidien
+            professionnel.
+          </p>
+        </div>
+        <div class="pillar-card">
+          <h3>Transformation digitale</h3>
+          <p>
+            Études de cas d'entreprises, ONG, administrations qui digitalisent.
+            Ce qui marche, ce qui rate, ce que ça coûte vraiment.
+          </p>
+        </div>
+        <div class="pillar-card">
+          <h3>Décryptages</h3>
+          <p>
+            L'actualité IA mondiale relue depuis l'Afrique. Quand l'AI Act
+            évolue ou qu'un nouveau modèle sort, quel impact concret ici ?
+          </p>
+        </div>
+        <div class="pillar-card">
+          <h3>Outils & méthodes</h3>
+          <p>
+            Gestion de projet moderne, automatisation, no-code. Comparatifs
+            honnêtes adaptés à nos budgets et contraintes de connectivité.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ L'ÉQUIPE ══════════════════════════════════════ -->
+  <section class="about-section">
+    <div class="about-section-inner">
+      <h2>Qui est <em>derrière</em></h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">G</div>
+          <div class="team-info">
+            <h4>Gassimou Cissé</h4>
+            <p class="team-role">Fondateur · Rédacteur en chef</p>
+            <p>
+              Chef de projet à Khamci Voyages et fondateur d'AssoHub,
+              plateforme SaaS pour les organisations civiles en Afrique
+              francophone. Basé à Conakry, Guinée.
+            </p>
+          </div>
+        </div>
+        <div class="team-card team-card-open">
+          <div class="team-avatar team-avatar-plus">+</div>
+          <div class="team-info">
+            <h4>Vous, peut-être</h4>
+            <p class="team-role">Contributeurs invités</p>
+            <p>
+              Sankoré est ouvert aux experts qui veulent partager leur
+              analyse, retour d'expérience ou point de vue.
+              <a href="/contribuer">Écrire avec nous →</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NEWSLETTER + ÉCRIRE ════════════════════════════ -->
+  <NewsletterBand />
+  <WriteWithUsBand />
+
+</BaseLayout>
+
+<style>
+  /* ── Hero ──────────────────────────────────────────── */
+  .about-hero {
+    padding: 80px 0 60px;
+  }
+
+  .about-hero-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 32px;
+    text-align: center;
+  }
+
+  .about-hero-inner :global(.eyebrow) {
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1.06;
+    letter-spacing: -0.028em;
+    margin-bottom: 32px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .mission {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-weight: 300;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ── Sections ──────────────────────────────────────── */
+  .about-section {
+    padding: 60px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .about-section-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .about-section h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .about-section h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .about-section p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+
+  /* ── Piliers ───────────────────────────────────────── */
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .pillar-card {
+    background: var(--paper-2);
+    padding: 32px;
+    border-top: 3px solid var(--terracotta);
+  }
+
+  .pillar-card:nth-child(2) { border-top-color: var(--gold); }
+  .pillar-card:nth-child(3) { border-top-color: var(--ochre); }
+  .pillar-card:nth-child(4) { border-top-color: var(--terracotta-deep); }
+
+  .pillar-card h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 14px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  .pillar-card p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+
+  /* ── Équipe ────────────────────────────────────────── */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 28px;
+  }
+
+  .team-card {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: var(--paper-2);
+  }
+
+  .team-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--paper-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--terracotta);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .team-avatar-plus {
+    color: var(--ink-mute);
+    font-size: 28px;
+    font-weight: 300;
+  }
+
+  .team-info h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .team-role {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--terracotta);
+    margin-bottom: 10px;
+    font-family: var(--sans);
+  }
+
+  .team-info p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+
+  .team-info a {
+    color: var(--terracotta);
+    border-bottom: 1px solid rgba(196, 80, 46, 0.4);
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+
+  .team-info a:hover { border-color: var(--terracotta); }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 720px) {
+    h1              { font-size: 40px; }
+    .mission        { font-size: 18px; }
+    .pillar-grid    { grid-template-columns: 1fr; }
+    .team-grid      { grid-template-columns: 1fr; }
+    .about-section h2 { font-size: 28px; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .about-hero-inner { padding: 0 20px; }
+    .about-section-inner { padding: 0 20px; }
+  }
+</style>

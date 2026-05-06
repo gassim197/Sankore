@@ -1,0 +1,189 @@
+---
+---
+
+<section class="write-band">
+  <div class="write-band-inner">
+
+    <div class="write-content">
+      <p class="eyebrow">Devenir contributeur</p>
+      <h2>Vous avez une expertise à <em>partager</em>&nbsp;?</h2>
+      <p>
+        Sankoré accueille des contributions de cadres, experts et praticiens
+        du continent. Si vous avez une analyse, un retour d'expérience ou une
+        réflexion à publier, écrivons ensemble.
+      </p>
+      <a href="/contribuer" class="write-cta">Proposer un sujet</a>
+    </div>
+
+    <div class="write-illus" aria-hidden="true">
+      <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="paperGrainWWU" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.4" fill="#A6896E" opacity="0.3"/>
+          </pattern>
+        </defs>
+        <rect x="60" y="40"  width="200" height="240" fill="#FBF7EE" stroke="#1B1F2A" stroke-width="1"/>
+        <rect x="60" y="40"  width="200" height="240" fill="url(#paperGrainWWU)"/>
+        <line x1="80" y1="80"  x2="240" y2="80"  stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="100" x2="220" y2="100" stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="120" x2="240" y2="120" stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="140" x2="200" y2="140" stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="160" x2="240" y2="160" stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="180" x2="180" y2="180" stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="200" x2="240" y2="200" stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="220" x2="210" y2="220" stroke="#A6896E" stroke-width="0.6"/>
+        <line x1="80" y1="240" x2="160" y2="240" stroke="#A6896E" stroke-width="0.6"/>
+        <g transform="translate(220,210) rotate(40)">
+          <rect x="-3" y="0"  width="6" height="80" fill="#C4502E"/>
+          <polygon points="-3,80 3,80 0,95"         fill="#1B1F2A"/>
+          <rect x="-3" y="-5" width="6" height="10" fill="#B8943B"/>
+        </g>
+        <circle cx="200" cy="260" r="4" fill="#C4502E" opacity="0.85"/>
+        <circle cx="210" cy="265" r="2" fill="#C4502E" opacity="0.5"/>
+      </svg>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .write-band {
+    background: var(--paper-3);
+    padding: 90px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Ligne terracotta verticale à gauche */
+  .write-band::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 8%;
+    width: 2px;
+    background: var(--terracotta);
+    opacity: 0.6;
+  }
+
+  /* Halo décoratif en bas à droite */
+  .write-band::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196, 80, 46, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .write-band-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .write-content :global(.eyebrow) {
+    color: var(--terracotta);
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1.08;
+    letter-spacing: -0.028em;
+    margin-bottom: 20px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  p {
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    max-width: 520px;
+  }
+
+  .write-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 32px;
+    font-family: var(--sans);
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+
+  .write-cta::after {
+    content: '→';
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+
+  .write-cta:hover {
+    background: var(--terracotta);
+  }
+
+  .write-cta:hover::after {
+    transform: translateX(4px);
+  }
+
+  .write-illus {
+    aspect-ratio: 1 / 1;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .write-illus svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Responsive */
+  @media (max-width: 880px) {
+    .write-band-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: center;
+    }
+
+    .write-illus {
+      max-width: 240px;
+      order: -1;
+    }
+
+    p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 580px) {
+    h2 {
+      font-size: 32px;
+    }
+
+    .write-band::before {
+      display: none;
+    }
+  }
+</style>

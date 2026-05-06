@@ -1,0 +1,45 @@
+---
+---
+<div
+  class="reading-progress"
+  id="readingProgress"
+  role="progressbar"
+  aria-label="Progression de lecture"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="0"
+></div>
+
+<script>
+  const bar     = document.getElementById('readingProgress');
+  const article = document.getElementById('articleBody');
+
+  if (bar && article) {
+    const update = () => {
+      const top    = article.getBoundingClientRect().top + window.scrollY;
+      const height = article.offsetHeight;
+      const pct    = Math.max(0, Math.min(100, ((window.scrollY - top) / height) * 100));
+
+      bar.style.width = `${pct}%`;
+      bar.setAttribute('aria-valuenow', String(Math.round(pct)));
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--terracotta);
+    z-index: 200;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(196, 80, 46, 0.4);
+    pointer-events: none;
+  }
+</style>

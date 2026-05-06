@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Bots de scraping agressifs
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+Sitemap: https://sankore.africa/sitemap-index.xml

@@ -1,0 +1,239 @@
+---
+const year = new Date().getFullYear();
+
+const piliers = [
+  { href: '/categories/ia-au-travail',          label: 'IA au travail' },
+  { href: '/categories/transformation-digitale', label: 'Transformation digitale' },
+  { href: '/categories/decryptages',            label: 'Décryptages' },
+  { href: '/categories/outils-methodes',        label: 'Outils & méthodes' },
+];
+
+const media = [
+  { href: '/a-propos',   label: 'À propos' },
+  { href: '/newsletter', label: 'Newsletter' },
+  { href: '/contribuer', label: 'Écrire avec nous' },
+  { href: '/archive',    label: 'Archive' },
+];
+
+const suivre = [
+  { href: 'https://linkedin.com/company/sankore-africa', label: 'LinkedIn', external: true },
+  { href: 'https://whatsapp.com/channel/sankore',        label: 'WhatsApp Channel', external: true },
+  { href: '/rss.xml',                                    label: 'Flux RSS' },
+  { href: 'mailto:contact@sankore.africa',               label: 'contact@sankore.africa' },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+
+      <!-- Colonne 1 : marque -->
+      <div class="footer-brand-col">
+        <a href="/" aria-label="Sankoré — Accueil" class="footer-brand-link">
+          <div class="footer-brand">Sankor<span class="accent">é</span></div>
+          <div class="footer-brand-tag">L'IA au travail, en Afrique</div>
+        </a>
+        <p class="footer-mission">
+          Un média indépendant, en français, pour les cadres et entrepreneurs
+          ouest-africains qui veulent que l'intelligence artificielle serve leur métier.
+        </p>
+      </div>
+
+      <!-- Colonne 2 : Piliers -->
+      <div class="footer-col">
+        <h5>Piliers</h5>
+        <ul>
+          {piliers.map(({ href, label }) => (
+            <li><a href={href}>{label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Colonne 3 : Le média -->
+      <div class="footer-col">
+        <h5>Le média</h5>
+        <ul>
+          {media.map(({ href, label }) => (
+            <li><a href={href}>{label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Colonne 4 : Suivre -->
+      <div class="footer-col">
+        <h5>Suivre</h5>
+        <ul>
+          {suivre.map(({ href, label, external }) => (
+            <li>
+              <a
+                href={href}
+                rel={external ? 'noopener noreferrer' : undefined}
+                target={external ? '_blank' : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div>© {year} Sankoré · Tous droits réservés · Conakry, Guinée</div>
+      <div class="legal">
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/confidentialite">Politique de confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 0 40px;
+  }
+
+  .footer-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(244, 237, 224, 0.12);
+  }
+
+  .footer-brand-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: -0.025em;
+    font-variation-settings: 'opsz' 144;
+    line-height: 1;
+  }
+
+  .footer-brand .accent {
+    color: var(--terracotta);
+  }
+
+  .footer-brand-tag {
+    font-size: 13px;
+    color: rgba(244, 237, 224, 0.6);
+    margin-bottom: 20px;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  .footer-mission {
+    font-size: 13.5px;
+    color: rgba(244, 237, 224, 0.55);
+    line-height: 1.7;
+    max-width: 360px;
+  }
+
+  .footer-col h5 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 18px;
+    font-weight: 500;
+    font-family: var(--sans);
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-col li a {
+    font-size: 14px;
+    color: rgba(244, 237, 224, 0.7);
+    transition: color 0.2s;
+    text-decoration: none;
+  }
+
+  .footer-col li a:hover {
+    color: var(--terracotta);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12px;
+    color: rgba(244, 237, 224, 0.45);
+  }
+
+  .legal {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-bottom a {
+    color: rgba(244, 237, 224, 0.45);
+    transition: color 0.2s;
+    text-decoration: none;
+  }
+
+  .footer-bottom a:hover {
+    color: var(--paper);
+  }
+
+  /* Responsive */
+  @media (max-width: 880px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .footer-brand-col {
+      grid-column: 1 / -1;
+    }
+
+    .footer-mission {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .footer-inner {
+      padding: 0 20px;
+    }
+
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .legal {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+</style>

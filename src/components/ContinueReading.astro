@@ -1,0 +1,163 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { readingTime } from '../utils/readingTime';
+import { CATEGORY_LABELS } from '../utils/categories';
+
+interface Props {
+  next?: CollectionEntry<'articles'> | undefined;
+}
+
+const { next } = Astro.props;
+if (!next) return;
+
+const catLabel = CATEGORY_LABELS[next.data.category] ?? next.data.category;
+const minutes  = readingTime(next.body);
+const href     = `/articles/${next.slug}`;
+---
+
+<div
+  id="continueReading"
+  class="continue-reading"
+  data-href={href}
+  role="complementary"
+  aria-label="Continuer la lecture"
+  aria-hidden="true"
+>
+  <button
+    id="continueClose"
+    class="continue-close"
+    aria-label="Fermer"
+    type="button"
+  >×</button>
+
+  <p class="cr-label">Lire ensuite</p>
+  <h5>{next.data.title}</h5>
+  <p class="cr-meta">{catLabel} · {minutes} min</p>
+</div>
+
+<script>
+  const widget   = document.getElementById('continueReading') as HTMLElement | null;
+  const closeBtn = document.getElementById('continueClose');
+  const body     = document.getElementById('articleBody');
+  const SK       = 'sankore-cr-dismissed';
+
+  if (!widget) { /* no next article */ }
+  else if (sessionStorage.getItem(SK)) {
+    widget.remove();
+  } else {
+    widget.setAttribute('aria-hidden', 'false');
+
+    const checkScroll = () => {
+      if (!body) return;
+      const pct = (window.scrollY - body.offsetTop) / body.offsetHeight * 100;
+      if (pct > 70) {
+        widget.classList.add('visible');
+        window.removeEventListener('scroll', checkScroll);
+      }
+    };
+
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
+
+    closeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      widget.classList.remove('visible');
+      sessionStorage.setItem(SK, '1');
+    });
+
+    widget.addEventListener('click', () => {
+      const href = widget.dataset.href;
+      if (href) window.location.href = href;
+    });
+  }
+</script>
+
+<style>
+  .continue-reading {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    padding: 16px 18px;
+    max-width: 320px;
+    z-index: 90;
+    box-shadow: 0 12px 40px rgba(27, 31, 42, 0.15);
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    cursor: pointer;
+  }
+
+  .continue-reading.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .continue-reading:hover {
+    border-color: var(--terracotta);
+  }
+
+  .continue-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    color: var(--ink-mute);
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+    padding: 0;
+    font-family: var(--sans);
+  }
+
+  .continue-close:hover {
+    color: var(--terracotta);
+  }
+
+  .cr-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-family: var(--sans);
+  }
+
+  h5 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    margin-bottom: 8px;
+    color: var(--ink);
+    padding-right: 16px;
+  }
+
+  .cr-meta {
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.05em;
+    font-family: var(--serif);
+    font-style: italic;
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .continue-reading {
+      left: 16px;
+      right: 16px;
+      max-width: none;
+      bottom: 16px;
+    }
+  }
+</style>

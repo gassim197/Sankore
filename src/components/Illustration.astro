@@ -1,0 +1,25 @@
+---
+import BarsIllustration       from './illustrations/BarsIllustration.astro';
+import ComparisonIllustration  from './illustrations/ComparisonIllustration.astro';
+import NetworkIllustration     from './illustrations/NetworkIllustration.astro';
+import DonutIllustration       from './illustrations/DonutIllustration.astro';
+import QuoteIllustration       from './illustrations/QuoteIllustration.astro';
+import ListIllustration        from './illustrations/ListIllustration.astro';
+import PenIllustration         from './illustrations/PenIllustration.astro';
+import DefaultIllustration     from './illustrations/DefaultIllustration.astro';
+
+interface Props {
+  type: string;
+  number?: string;
+}
+const { type, number } = Astro.props;
+---
+{type === 'bars'        && <BarsIllustration />}
+{type === 'comparison'  && <ComparisonIllustration />}
+{type === 'network'     && <NetworkIllustration />}
+{type === 'donut'       && <DonutIllustration number={number} />}
+{type === 'quote'       && <QuoteIllustration />}
+{type === 'list'        && <ListIllustration />}
+{type === 'pen'         && <PenIllustration />}
+{(type === 'default' || !['bars','comparison','network','donut','quote','list','pen'].includes(type))
+  && <DefaultIllustration />}

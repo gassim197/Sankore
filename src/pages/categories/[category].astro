@@ -1,0 +1,189 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import NewsletterBand from '../../components/NewsletterBand.astro';
+import WriteWithUsBand from '../../components/WriteWithUsBand.astro';
+import Ornament from '../../components/Ornament.astro';
+import {
+  CATEGORY_LABELS,
+  CATEGORY_HEADINGS,
+  CATEGORY_DESCRIPTIONS,
+} from '../../utils/categories';
+
+const ALL_CATEGORIES = [
+  'ia-au-travail',
+  'transformation-digitale',
+  'decryptages',
+  'outils-methodes',
+] as const;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return ALL_CATEGORIES.map(category => ({ params: { category } }));
+};
+
+const { category } = Astro.params as { category: string };
+
+const label       = CATEGORY_LABELS[category]       ?? category;
+const heading     = CATEGORY_HEADINGS[category]     ?? { before: '', em: label };
+const description = CATEGORY_DESCRIPTIONS[category] ?? '';
+
+const articles: CollectionEntry<'articles'>[] = await getCollection(
+  'articles',
+  ({ data }) => !data.draft && data.category === category,
+);
+const sorted = articles.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+---
+
+<BaseLayout
+  title={`${label} — Sankoré`}
+  description={description}
+>
+
+  <!-- ══ HERO CATÉGORIE ═════════════════════════════════ -->
+  <section class="cat-hero">
+    <div class="cat-hero-inner">
+
+      <div class="cat-left">
+        <p class="eyebrow">Pilier éditorial</p>
+        <h1>{heading.before}<em>{heading.em}</em></h1>
+        <p class="desc">{description}</p>
+      </div>
+
+      <div class="cat-stats">
+        <strong>{sorted.length}</strong>
+        article{sorted.length !== 1 ? 's' : ''} publié{sorted.length !== 1 ? 's' : ''}
+        dans cette catégorie
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ LISTE D'ARTICLES ═══════════════════════════════ -->
+  <section class="cat-list">
+    <div class="container">
+
+      {sorted.length > 0 ? (
+        <div class="cards">
+          {sorted.map(article => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+      ) : (
+        <p class="empty">
+          Les premiers articles de cette rubrique arrivent très bientôt.
+        </p>
+      )}
+
+    </div>
+  </section>
+
+  <Ornament />
+
+  <!-- ══ NEWSLETTER + ÉCRIRE ════════════════════════════ -->
+  <NewsletterBand />
+  <WriteWithUsBand />
+
+</BaseLayout>
+
+<style>
+  /* ── Hero ──────────────────────────────────────────── */
+  .cat-hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cat-hero-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 60px;
+    align-items: end;
+  }
+
+  .cat-left :global(.eyebrow) {
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .desc {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 560px;
+  }
+
+  .cat-stats {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--ink-mute);
+    letter-spacing: 0.02em;
+    font-style: italic;
+    text-align: right;
+  }
+
+  .cat-stats strong {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 48px;
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: -0.03em;
+    font-family: var(--serif);
+    font-variation-settings: 'opsz' 144;
+  }
+
+  /* ── Liste ─────────────────────────────────────────── */
+  .cat-list {
+    padding: 60px 0;
+  }
+
+  .empty {
+    color: var(--ink-mute);
+    font-style: italic;
+    font-size: 16px;
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 880px) {
+    .cat-hero-inner {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    h1 { font-size: 48px; }
+
+    .cat-stats {
+      text-align: left;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+  }
+
+  @media (max-width: 580px) {
+    h1 { font-size: 36px; }
+    .cat-hero-inner { padding: 0 20px; }
+  }
+</style>

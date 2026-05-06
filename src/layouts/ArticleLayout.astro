@@ -1,0 +1,17 @@
+---
+// Layout article — à implémenter avec ReadingProgress, Header, Footer, SEO JSON-LD
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+const { article } = Astro.props;
+---
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{article.data.title} — Sankoré</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

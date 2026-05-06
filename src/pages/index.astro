@@ -1,0 +1,419 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import EssentialCard from '../components/EssentialCard.astro';
+import NewsletterBand from '../components/NewsletterBand.astro';
+import WriteWithUsBand from '../components/WriteWithUsBand.astro';
+import Illustration from '../components/Illustration.astro';
+import { formatDate } from '../utils/formatDate';
+import { readingTime } from '../utils/readingTime';
+import { CATEGORY_LABELS } from '../utils/categories';
+
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const sorted = allArticles.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+
+const featured = sorted.find(a => a.data.featured) ?? sorted[0];
+const recent   = sorted.filter(a => a.slug !== featured?.slug).slice(0, 6);
+// Si pas assez d'articles non-featured, on complète avec le featured
+const displayRecent = recent.length > 0 ? recent : sorted.slice(0, 6);
+const essentials = sorted.slice(0, 4);
+
+const heroMinutes = featured ? readingTime(featured.body) : 0;
+const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featured.data.category) : '';
+---
+
+<BaseLayout
+  title="Sankoré — L'IA au travail, en Afrique"
+  description="Un média indépendant, en français, pour les cadres et entrepreneurs ouest-africains qui veulent que l'intelligence artificielle serve leur métier."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Sankoré',
+    url: 'https://sankore.africa',
+    description: "Un média indépendant, en français, pour les cadres et entrepreneurs ouest-africains qui veulent que l'intelligence artificielle serve leur métier.",
+    inLanguage: 'fr',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Sankoré',
+      url: 'https://sankore.africa',
+      logo: { '@type': 'ImageObject', url: 'https://sankore.africa/favicon.svg' },
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: { '@type': 'EntryPoint', urlTemplate: 'https://sankore.africa/archive?q={search_term_string}' },
+      'query-input': 'required name=search_term_string',
+    },
+  })} />
+
+  <!-- ═══════════════════════════════════════════════ HERO ═══ -->
+  {featured && (
+    <section class="home-hero">
+      <div class="hero-inner">
+
+        <div class="hero-content">
+          <p class="eyebrow">{heroCat} · Article phare</p>
+          <h1>{featured.data.title}</h1>
+          {featured.data.dek && <p class="dek">{featured.data.dek}</p>}
+          <div class="hero-meta">
+            <span><strong>{featured.data.author.name}</strong></span>
+            <span class="dot"></span>
+            <time datetime={featured.data.publishedAt.toISOString()}>
+              {formatDate(featured.data.publishedAt)}
+            </time>
+            <span class="dot"></span>
+            <span>{heroMinutes} min de lecture</span>
+          </div>
+          <a href={`/articles/${featured.slug}`} class="btn btn-primary">
+            Lire l'article
+          </a>
+        </div>
+
+        <div class="hero-illus">
+          <Illustration
+            type={featured.data.illustration}
+            number={featured.data.illustrationProps?.number}
+          />
+        </div>
+
+      </div>
+    </section>
+  )}
+
+  <!-- ════════════════════════════════════════ ARTICLES RÉCENTS ═══ -->
+  <section class="recent-section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>Articles <em>récents</em></h2>
+        <a href="/archive" class="view-all">Voir toutes les publications →</a>
+      </div>
+
+      <!-- Pills de filtre par pilier -->
+      <div class="pillar-pills" role="group" aria-label="Filtrer par rubrique">
+        <button class="pill active" data-filter="all">Tous</button>
+        <button class="pill" data-filter="ia-au-travail">IA au travail</button>
+        <button class="pill" data-filter="transformation-digitale">Transformation digitale</button>
+        <button class="pill" data-filter="decryptages">Décryptages</button>
+        <button class="pill" data-filter="outils-methodes">Outils & méthodes</button>
+      </div>
+
+      <!-- Grille de cards -->
+      <div class="cards-list" id="cardsList">
+        {displayRecent.map(article => (
+          <ArticleCard article={article} />
+        ))}
+        {displayRecent.length === 0 && (
+          <p class="empty">Les articles arrivent bientôt.</p>
+        )}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════ POUR COMMENCER ═══ -->
+  <section class="essentials-section">
+    <div class="container">
+
+      <div class="essentials-header">
+        <p class="eyebrow">Pour commencer</p>
+        <h2>Vous découvrez Sankoré ? <em>Commencez par ici</em></h2>
+        <p>
+          Des articles essentiels qui résument notre approche et vous donnent
+          les bases pour appliquer l'IA et la transformation digitale dans
+          votre quotidien professionnel.
+        </p>
+      </div>
+
+      <div class="essentials-grid">
+        {essentials.map((article, i) => (
+          <EssentialCard article={article} index={i} />
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════ NEWSLETTER ═══ -->
+  <NewsletterBand />
+
+  <!-- ═══════════════════════════════════════ ÉCRIRE AVEC NOUS ═══ -->
+  <WriteWithUsBand />
+
+</BaseLayout>
+
+<!-- Filtre piliers côté client -->
+<script>
+  const pills = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const list  = document.getElementById('cardsList');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => {
+        p.classList.remove('active');
+        p.setAttribute('aria-pressed', 'false');
+      });
+      pill.classList.add('active');
+      pill.setAttribute('aria-pressed', 'true');
+
+      const filter = pill.dataset.filter;
+      list?.querySelectorAll<HTMLElement>('[data-category]').forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  /* ── Hero ────────────────────────────────────────── */
+  .home-hero {
+    padding: 80px 0 60px;
+  }
+
+  .hero-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-content :global(.eyebrow) {
+    margin-bottom: 18px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 24px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .dek {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    max-width: 540px;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta strong {
+    color: var(--ink);
+  }
+
+  .dot {
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .hero-illus {
+    aspect-ratio: 4 / 5;
+    max-height: 560px;
+    background: var(--paper-3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-illus :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── Articles récents ────────────────────────────── */
+  .recent-section {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .section-header h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .section-header h2 em {
+    font-style: italic;
+  }
+
+  .view-all {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--terracotta);
+    text-decoration: none;
+    transition: opacity 0.18s;
+  }
+
+  .view-all:hover {
+    opacity: 0.75;
+  }
+
+  .pillar-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .pill {
+    font-size: 12.5px;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    background: var(--paper-2);
+    color: var(--ink-soft);
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    font-family: var(--sans);
+  }
+
+  .pill:hover,
+  .pill.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .cards-list {
+    /* les ArticleCard s'empilent naturellement */
+  }
+
+  .empty {
+    color: var(--ink-mute);
+    font-style: italic;
+    padding: 40px 0;
+  }
+
+  /* ── Pour commencer ──────────────────────────────── */
+  .essentials-section {
+    background: var(--paper-2);
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .essentials-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .essentials-header :global(.eyebrow) {
+    color: var(--gold);
+    margin-bottom: 18px;
+  }
+
+  .essentials-header h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .essentials-header h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .essentials-header p {
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .essentials-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 980px) {
+    .essentials-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 880px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .hero-illus {
+      aspect-ratio: 16 / 9;
+      max-height: 320px;
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    h1 {
+      font-size: 34px;
+    }
+
+    .section-header h2 {
+      font-size: 26px;
+    }
+
+    .essentials-header h2 {
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .home-hero {
+      padding: 48px 0 40px;
+    }
+
+    .hero-inner {
+      padding: 0 20px;
+    }
+
+    .essentials-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

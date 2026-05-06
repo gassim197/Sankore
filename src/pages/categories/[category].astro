@@ -12,14 +12,13 @@ import {
   CATEGORY_DESCRIPTIONS,
 } from '../../utils/categories';
 
-const ALL_CATEGORIES = [
-  'ia-au-travail',
-  'transformation-digitale',
-  'decryptages',
-  'outils-methodes',
-] as const;
-
 export const getStaticPaths: GetStaticPaths = async () => {
+  const ALL_CATEGORIES = [
+    'ia-au-travail',
+    'transformation-digitale',
+    'decryptages',
+    'outils-methodes',
+  ] as const;
   return ALL_CATEGORIES.map(category => ({ params: { category } }));
 };
 

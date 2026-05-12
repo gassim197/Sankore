@@ -90,7 +90,16 @@ import WriteWithUsBand from '../components/WriteWithUsBand.astro';
       <h2>Qui est <em>derrière</em></h2>
       <div class="team-grid">
         <div class="team-card">
-          <div class="team-avatar">G</div>
+          <div class="team-avatar">
+            <img
+              src="/gassimou-cisse.jpg"
+              alt="Gassimou Cissé, fondateur de Sankoré"
+              width="64"
+              height="64"
+              loading="lazy"
+              class="team-avatar-photo"
+            />
+          </div>
           <div class="team-info">
             <h4>Gassimou Cissé</h4>
             <p class="team-role">Fondateur · Rédacteur en chef</p>
@@ -264,6 +273,15 @@ import WriteWithUsBand from '../components/WriteWithUsBand.astro';
     color: var(--terracotta);
     font-weight: 500;
     flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .team-avatar-photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
   }
 
   .team-avatar-plus {

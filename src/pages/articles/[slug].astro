@@ -130,7 +130,18 @@ const jsonLd = {
 
   <!-- ══ BLOC AUTEUR ══════════════════════════════════════ -->
   <div class="author-block">
-    <div class="author-avatar" aria-hidden="true">{author.initial}</div>
+    <div class="author-avatar" aria-hidden="true">
+      {author.name === 'Gassimou Cissé' ? (
+        <img
+          src="/gassimou-cisse.jpg"
+          alt="Gassimou Cissé, fondateur de Sankoré"
+          width="80"
+          height="80"
+          loading="lazy"
+          class="author-avatar-photo"
+        />
+      ) : author.initial}
+    </div>
     <div class="author-info">
       <h4>{author.name}</h4>
       <p class="author-role">{author.role} · Sankoré</p>
@@ -407,6 +418,15 @@ const jsonLd = {
     font-size: 28px;
     color: var(--terracotta);
     font-weight: 500;
+    overflow: hidden;
+  }
+
+  .author-avatar-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
   }
 
   .author-info h4 {

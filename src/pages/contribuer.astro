@@ -74,76 +74,27 @@ import NewsletterBand from '../components/NewsletterBand.astro';
   <!-- ══ FORMULAIRE ════════════════════════════════════ -->
   <section class="contrib-form-section">
     <h2>Proposez votre sujet</h2>
-    <p>
-      Décrivez en quelques lignes le sujet, votre angle, ce que vous voulez
-      démontrer. Pas besoin d'un texte abouti — un bon pitch suffit.
+    <p class="form-intro">
+      Remplissez le formulaire ci-dessous pour proposer un sujet d'article.
     </p>
-
-    <form class="contrib-form" id="contribForm" novalidate>
-      <div class="row">
-        <input type="text"  name="firstname" placeholder="Prénom"  required autocomplete="given-name" />
-        <input type="text"  name="lastname"  placeholder="Nom"     required autocomplete="family-name" />
-      </div>
-      <div class="row">
-        <input type="email" name="email"     placeholder="Email"   required autocomplete="email" />
-        <input type="text"  name="position"  placeholder="Fonction · Organisation" />
-      </div>
-      <select name="type">
-        <option value="">Type de contribution</option>
-        <option value="analyse">Analyse de fond</option>
-        <option value="rex">Retour d'expérience</option>
-        <option value="tribune">Tribune / Opinion</option>
-        <option value="tutoriel">Tutoriel</option>
-        <option value="comparatif">Comparatif d'outils</option>
-        <option value="autre">Autre / À discuter</option>
-      </select>
-      <input type="text" name="title" placeholder="Titre provisoire de votre article" />
-      <textarea name="pitch" placeholder="Décrivez votre sujet en 3-5 lignes." required></textarea>
-      <button type="submit">Envoyer mon pitch</button>
-    </form>
-
-    <p class="form-success" id="contribSuccess" aria-live="polite">
-      Merci ! Nous vous répondrons sous 7 jours.
-    </p>
+    <div class="gform-wrapper">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSfuuJ3RgwrNF_Npk7TNoyJXaV5AteNPDSCTRfkMlZjpwB61AA/viewform?embedded=true"
+        width="100%"
+        height="900"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="Formulaire de pitch — Sankoré"
+        loading="lazy"
+      >Chargement du formulaire…</iframe>
+    </div>
   </section>
 
   <NewsletterBand />
 
 </BaseLayout>
 
-<script>
-  const form    = document.getElementById('contribForm') as HTMLFormElement | null;
-  const success = document.getElementById('contribSuccess');
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(form).entries());
-
-    const btn = form.querySelector('button') as HTMLButtonElement;
-    btn.disabled = true;
-    btn.textContent = 'Envoi…';
-
-    try {
-      const res = await fetch('/api/contribute', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (res.ok || res.status === 404) {
-        // 404 = API pas encore implémentée, on simule le succès
-        form.style.display = 'none';
-        if (success) success.style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.textContent = 'Envoyer mon pitch';
-      }
-    } catch {
-      // API non disponible, on affiche quand même le succès
-      form.style.display = 'none';
-      if (success) success.style.display = 'block';
-    }
-  });
-</script>
 
 <style>
   /* ── Hero ──────────────────────────────────────────── */
@@ -246,9 +197,9 @@ import NewsletterBand from '../components/NewsletterBand.astro';
 
   li strong { color: var(--ink); font-weight: 600; }
 
-  /* ── Formulaire ─────────────────────────────────────── */
+  /* ── Formulaire Google Form ──────────────────────────── */
   .contrib-form-section {
-    max-width: 720px;
+    max-width: 800px;
     margin: 0 auto 0;
     padding: 60px 32px;
     background: var(--ink);
@@ -273,77 +224,23 @@ import NewsletterBand from '../components/NewsletterBand.astro';
     font-variation-settings: 'opsz' 144;
   }
 
-  .contrib-form-section > p {
+  .form-intro {
     color: rgba(244, 237, 224, 0.7);
     font-size: 15px;
     margin-bottom: 32px;
-    max-width: 540px;
     line-height: 1.6;
   }
 
-  .contrib-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  .gform-wrapper {
+    width: 100%;
+    border-radius: 2px;
+    overflow: hidden;
   }
 
-  .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .contrib-form input,
-  .contrib-form textarea,
-  .contrib-form select {
-    padding: 13px 16px;
-    background: rgba(244, 237, 224, 0.06);
-    border: 1px solid rgba(244, 237, 224, 0.15);
-    color: var(--paper);
-    font-family: var(--sans);
-    font-size: 14.5px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .contrib-form input::placeholder,
-  .contrib-form textarea::placeholder { color: rgba(244, 237, 224, 0.4); }
-  .contrib-form select { color: rgba(244, 237, 224, 0.7); }
-  .contrib-form select option { color: var(--ink); background: var(--paper); }
-
-  .contrib-form input:focus,
-  .contrib-form textarea:focus,
-  .contrib-form select:focus { border-color: var(--gold); }
-
-  .contrib-form textarea {
-    min-height: 140px;
-    resize: vertical;
-  }
-
-  .contrib-form button {
-    background: var(--terracotta);
-    color: var(--paper);
-    padding: 16px;
-    font-family: var(--sans);
-    font-size: 14px;
-    font-weight: 500;
+  .gform-wrapper iframe {
+    display: block;
+    width: 100%;
     border: none;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    margin-top: 8px;
-    transition: background 0.2s;
-  }
-
-  .contrib-form button:hover    { background: var(--terracotta-deep); }
-  .contrib-form button:disabled { opacity: 0.6; cursor: wait; }
-
-  .form-success {
-    display: none;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 18px;
-    color: var(--gold);
-    margin-top: 16px;
   }
 
   /* ── Responsive ─────────────────────────────────────── */

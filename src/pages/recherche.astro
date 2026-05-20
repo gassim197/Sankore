@@ -7,8 +7,6 @@ import NewsletterBand from '../components/NewsletterBand.astro';
   title="Recherche — Sankoré"
   description="Recherchez parmi tous les articles publiés sur Sankoré — IA au travail, transformation digitale, outils et méthodes."
 >
-  <link slot="head" href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-
   <div class="search-hero">
     <p class="eyebrow">Recherche</p>
     <h1>Trouvez un article</h1>
@@ -21,20 +19,36 @@ import NewsletterBand from '../components/NewsletterBand.astro';
 
   <NewsletterBand />
 
-  <script src="/pagefind/pagefind-ui.js" is:inline></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      // @ts-ignore
-      new PagefindUI({
-        element: '#search',
-        showSubResults: true,
-        placeholder: 'Rechercher un article, un terme, un outil...',
-        translations: {
-          placeholder: 'Rechercher un article, un terme, un outil...',
-          zero_results: 'Aucun résultat pour [SEARCH_TERM]',
-        },
-      });
-    });
+  <script is:inline>
+    (function () {
+      function init() {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '/pagefind/pagefind-ui.css';
+        document.head.appendChild(link);
+
+        var script = document.createElement('script');
+        script.src = '/pagefind/pagefind-ui.js';
+        script.onload = function () {
+          new PagefindUI({
+            element: '#search',
+            showSubResults: true,
+            placeholder: 'Rechercher un article, un terme, un outil...',
+            translations: {
+              placeholder: 'Rechercher un article, un terme, un outil...',
+              zero_results: 'Aucun résultat pour [SEARCH_TERM]',
+            },
+          });
+        };
+        document.head.appendChild(script);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
   </script>
 </BaseLayout>
 

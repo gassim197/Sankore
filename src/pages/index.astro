@@ -73,10 +73,10 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
         </div>
 
         <div class="hero-illus">
-          <Illustration
-            type={featured.data.illustration}
-            number={featured.data.illustrationProps?.number}
-          />
+          {featured.data.image
+            ? <img src={featured.data.image} alt={featured.data.title} class="hero-image" />
+            : <Illustration type={featured.data.illustration} number={featured.data.illustrationProps?.number} />
+          }
         </div>
 
       </div>
@@ -240,6 +240,13 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
   .hero-illus :global(svg) {
     width: 100%;
     height: 100%;
+    display: block;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
 

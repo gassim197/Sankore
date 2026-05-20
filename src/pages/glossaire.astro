@@ -1,0 +1,325 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterBand from '../components/NewsletterBand.astro';
+import WriteWithUsBand from '../components/WriteWithUsBand.astro';
+---
+
+<BaseLayout
+  title="Glossaire IA — Sankoré"
+  description="Les termes essentiels de l'intelligence artificielle expliqués pour les professionnels et entrepreneurs africains. Sans jargon inutile."
+>
+  <main class="glossaire-page">
+
+    <!-- Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-label">Référence</p>
+        <h1 class="page-title">Glossaire IA</h1>
+        <p class="page-subtitle">Les termes essentiels de l'intelligence artificielle expliqués pour les professionnels et entrepreneurs africains. Sans jargon inutile.</p>
+        <nav class="section-nav">
+          <a href="#fondamentaux">Les fondamentaux</a>
+          <a href="#outils">Outils & usages</a>
+          <a href="#contexte">Contexte africain</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Section 1 : Fondamentaux -->
+    <section class="terms-section" id="fondamentaux">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">01</span>
+          <h2>Les fondamentaux</h2>
+          <p>Les notions de base que tout professionnel qui utilise l'IA doit maîtriser.</p>
+        </div>
+        <dl class="terms-list">
+          <div class="term-item">
+            <dt>Intelligence artificielle (IA)</dt>
+            <dd>Ensemble de technologies qui permettent aux machines d'accomplir des tâches qui requièrent normalement l'intelligence humaine : comprendre du texte, analyser des images, prendre des décisions, générer du contenu.</dd>
+          </div>
+          <div class="term-item">
+            <dt>LLM (Large Language Model)</dt>
+            <dd>Modèle de langage de grande taille, comme Claude, ChatGPT ou Gemini. Formé sur des milliards de textes, il génère du contenu cohérent en prédisant les suites les plus probables selon un contexte donné.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Prompt</dt>
+            <dd>L'instruction ou la question que vous donnez à un assistant IA. La qualité d'un prompt détermine directement la qualité de la réponse obtenue. "Prompting" désigne l'art de formuler ces instructions efficacement.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Hallucination</dt>
+            <dd>Quand un modèle IA génère des informations fausses avec assurance — dates, noms, statistiques qui semblent crédibles mais n'existent pas. À toujours vérifier avant d'utiliser en contexte professionnel.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Fine-tuning</dt>
+            <dd>Processus d'entraînement supplémentaire d'un modèle IA existant sur des données spécifiques pour l'adapter à un domaine particulier. Permet d'obtenir un modèle spécialisé sans repartir de zéro.</dd>
+          </div>
+          <div class="term-item">
+            <dt>RAG (Retrieval-Augmented Generation)</dt>
+            <dd>Technique qui connecte un LLM à une base de données externe pour qu'il réponde en s'appuyant sur des documents réels et récents, plutôt que sur ses seules données d'entraînement.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Token</dt>
+            <dd>Unité de base traitée par un LLM. Grossièrement, un token correspond à ¾ d'un mot en français. Les modèles ont une limite en tokens qui détermine la longueur maximale d'une conversation ou d'un document traité.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Fenêtre de contexte</dt>
+            <dd>La quantité d'information qu'un modèle peut prendre en compte en une seule fois. Plus elle est grande, plus on peut lui soumettre de longs documents ou conduire de longues conversations sans perte de mémoire.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Modèle de fondation</dt>
+            <dd>Un modèle IA entraîné sur de grandes quantités de données générales, utilisable comme base pour de nombreuses applications. Claude, GPT-4 et Gemini sont des modèles de fondation.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Données d'entraînement</dt>
+            <dd>L'ensemble de textes, images ou autres données sur lesquels un modèle IA a été formé. Leur qualité et diversité déterminent les capacités et les biais du modèle.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Section 2 : Outils et usages -->
+    <section class="terms-section alt-bg" id="outils">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">02</span>
+          <h2>Outils & usages</h2>
+          <p>Les termes liés à l'utilisation pratique de l'IA au quotidien.</p>
+        </div>
+        <dl class="terms-list">
+          <div class="term-item">
+            <dt>IA générative</dt>
+            <dd>Catégorie d'IA capable de créer du contenu nouveau — texte, images, audio, vidéo, code. Claude, Midjourney ou ElevenLabs entrent dans cette catégorie.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Agent IA</dt>
+            <dd>Système IA capable d'accomplir des tâches de manière autonome, en enchaînant des actions sans intervention humaine à chaque étape. Un agent peut naviguer sur le web, exécuter du code ou gérer des fichiers.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Automatisation</dt>
+            <dd>Utilisation de logiciels pour exécuter des tâches répétitives sans intervention humaine. En combinaison avec l'IA, elle permet d'automatiser des tâches autrefois réservées aux humains, comme trier des emails ou rédiger des rapports.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Workflow automatisé</dt>
+            <dd>Séquence d'actions déclenchées automatiquement selon des règles définies. Exemple : quand un formulaire est rempli → Claude rédige une réponse → elle est envoyée par email.</dd>
+          </div>
+          <div class="term-item">
+            <dt>No-code / Low-code</dt>
+            <dd>Approche qui permet de construire des applications ou automatisations sans écrire de code (no-code) ou avec très peu de code (low-code). Des outils comme Zapier ou Make permettent de connecter des services entre eux visuellement.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Multimodal</dt>
+            <dd>Se dit d'un modèle IA capable de traiter plusieurs types de données — texte, images, audio, vidéo. Claude est multimodal : il peut analyser des images en plus de lire et générer du texte.</dd>
+          </div>
+          <div class="term-item">
+            <dt>API (Application Programming Interface)</dt>
+            <dd>Interface qui permet à deux logiciels de communiquer. Accéder à Claude via API permet de l'intégrer dans une application ou un workflow sans passer par l'interface web habituelle.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Few-shot prompting</dt>
+            <dd>Technique qui consiste à donner 2-3 exemples de ce qu'on attend avant de poser la vraie question à l'IA. Améliore souvent la qualité et la précision des réponses obtenues.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Copilot</dt>
+            <dd>Assistant IA intégré directement dans un logiciel existant (Word, Excel, GitHub...). S'active depuis l'outil que vous utilisez déjà, sans changer d'interface. Microsoft Copilot en est l'exemple le plus connu.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Paramètre (d'un modèle)</dt>
+            <dd>Variable interne d'un modèle IA ajustée pendant l'entraînement. Le nombre de paramètres donne une idée de la complexité du modèle — un indicateur souvent mentionné dans les annonces de nouveaux modèles.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Section 3 : Contexte africain -->
+    <section class="terms-section" id="contexte">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">03</span>
+          <h2>Contexte africain</h2>
+          <p>Les enjeux et réalités spécifiques à l'Afrique francophone que tout acteur du digital doit connaître.</p>
+        </div>
+        <dl class="terms-list">
+          <div class="term-item">
+            <dt>Souveraineté numérique</dt>
+            <dd>Capacité d'un État ou d'une organisation à contrôler ses infrastructures numériques et ses données sans dépendance excessive envers des acteurs étrangers. Enjeu croissant pour les gouvernements africains face aux géants technologiques.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Fracture digitale</dt>
+            <dd>Inégalité d'accès aux technologies numériques. En Afrique, elle se manifeste entre zones urbaines et rurales, entre genres, et entre pays aux infrastructures très différentes.</dd>
+          </div>
+          <div class="term-item">
+            <dt>IA low-bandwidth</dt>
+            <dd>Approches et outils IA conçus pour fonctionner avec une connexion internet limitée ou instable. Un enjeu pratique pour de nombreux professionnels africains qui travaillent hors des grandes métropoles.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Mobile-first</dt>
+            <dd>Approche qui priorise l'expérience sur téléphone mobile. En Afrique subsaharienne, la majorité des internautes accèdent au web via smartphone — un principe central pour tout outil digital destiné au marché africain.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Transformation digitale</dt>
+            <dd>Processus d'intégration des technologies numériques dans l'ensemble des activités d'une organisation. En Afrique, ce processus s'accélère mais se heurte à des défis spécifiques : infrastructures, compétences, réglementation.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Tech for Good</dt>
+            <dd>Utilisation de la technologie pour répondre à des enjeux sociaux ou de développement. En Afrique, désigne des initiatives qui mobilisent le numérique pour améliorer l'accès à la santé, à l'éducation ou aux services financiers.</dd>
+          </div>
+          <div class="term-item">
+            <dt>Civic tech</dt>
+            <dd>Technologies numériques au service de l'engagement citoyen et de la démocratie. En Afrique francophone, des plateformes de signalement citoyen ou de suivi budgétaire entrent dans cette catégorie.</dd>
+          </div>
+          <div class="term-item">
+            <dt>IA Act</dt>
+            <dd>Règlement européen sur l'IA adopté en 2024, premier cadre légal mondial à réguler l'IA de manière systématique. Impacte toute organisation africaine utilisant des outils IA européens ou exportant vers l'Union européenne.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+  </main>
+
+  <NewsletterBand />
+  <WriteWithUsBand />
+</BaseLayout>
+
+<style>
+  .glossaire-page { background: var(--paper); }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .page-hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--paper-3);
+  }
+
+  .page-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+  }
+
+  .page-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .page-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+
+  .section-nav {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .section-nav a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--paper-3);
+    padding: 8px 18px;
+    background: var(--paper-2);
+    transition: all 0.2s;
+  }
+
+  .section-nav a:hover {
+    background: var(--terracotta);
+    color: #fff;
+    border-color: var(--terracotta);
+  }
+
+  .terms-section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--paper-3);
+  }
+
+  .terms-section.alt-bg { background: var(--paper-2); }
+
+  .section-header { margin-bottom: 48px; }
+
+  .section-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .section-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .section-header p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .terms-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .term-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--paper-3);
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .term-item:last-child { border-bottom: none; }
+
+  .term-item dt {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--terracotta);
+    line-height: 1.4;
+    padding-top: 2px;
+  }
+
+  .term-item dd {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .term-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .page-hero { padding: 48px 0 40px; }
+    .terms-section { padding: 48px 0; }
+  }
+</style>

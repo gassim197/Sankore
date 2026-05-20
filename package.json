@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && node scripts/patch-vercel-runtime.mjs",
+    "build": "astro build && node scripts/patch-vercel-runtime.mjs && npx pagefind --site .vercel/output/static",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check"
@@ -25,6 +25,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
     "@resvg/resvg-js": "^2.6.2",
+    "pagefind": "^1.5.2",
     "typescript": "^5.6.0"
   }
 }

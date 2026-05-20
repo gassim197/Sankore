@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterBand from '../components/NewsletterBand.astro';
+---
+
+<BaseLayout
+  title="Recherche — Sankoré"
+  description="Recherchez parmi tous les articles publiés sur Sankoré — IA au travail, transformation digitale, outils et méthodes."
+>
+  <link slot="head" href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+
+  <div class="search-hero">
+    <p class="eyebrow">Recherche</p>
+    <h1>Trouvez un article</h1>
+    <p class="subtitle">Recherchez parmi tous les articles publiés sur Sankoré.</p>
+  </div>
+
+  <div class="search-wrapper">
+    <div id="search"></div>
+  </div>
+
+  <NewsletterBand />
+
+  <script src="/pagefind/pagefind-ui.js" is:inline></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // @ts-ignore
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        placeholder: 'Rechercher un article, un terme, un outil...',
+        translations: {
+          placeholder: 'Rechercher un article, un terme, un outil...',
+          zero_results: 'Aucun résultat pour [SEARCH_TERM]',
+        },
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  #search {
+    --pagefind-ui-primary:    var(--terracotta);
+    --pagefind-ui-text:       var(--ink);
+    --pagefind-ui-background: var(--paper);
+    --pagefind-ui-border:     var(--paper-3);
+    --pagefind-ui-font:       'DM Sans', sans-serif;
+  }
+
+  .search-hero {
+    padding: 72px 0 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .search-hero :global(.eyebrow) {
+    margin-bottom: 16px;
+  }
+
+  .search-hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .search-wrapper {
+    max-width: 760px;
+    margin: 56px auto 80px;
+    padding: 0 32px;
+  }
+
+  @media (max-width: 720px) {
+    .search-hero h1 { font-size: 34px; }
+    .search-hero     { padding: 48px 0 32px; }
+    .search-wrapper  { margin: 40px auto 60px; padding: 0 20px; }
+  }
+</style>

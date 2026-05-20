@@ -30,6 +30,7 @@ const articles = defineCollection({
         number: z.string().optional(),
       })
       .optional(),
+    image: z.string().optional(),
     author: z.object({
       name: z.string(),
       role: z.string(),

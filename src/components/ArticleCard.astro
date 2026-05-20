@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { title, excerpt, category, publishedAt, illustration, illustrationProps } = article.data;
+const { title, excerpt, category, publishedAt, illustration, illustrationProps, image } = article.data;
 const minutes   = readingTime(article.body);
 const catLabel  = CATEGORY_LABELS[category] ?? category;
 const href      = `/articles/${article.slug}`;
@@ -18,7 +18,10 @@ const href      = `/articles/${article.slug}`;
 
 <a href={href} class="card" data-category={category}>
   <div class="card-illus">
-    <Illustration type={illustration} number={illustrationProps?.number} />
+    {image
+      ? <img src={image} alt={title} class="card-image" loading="lazy" />
+      : <Illustration type={illustration} number={illustrationProps?.number} />
+    }
   </div>
   <div class="card-content">
     <div class="meta-row">
@@ -75,6 +78,13 @@ const href      = `/articles/${article.slug}`;
   .card-illus :global(svg) {
     width: 100%;
     height: 100%;
+    display: block;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
 

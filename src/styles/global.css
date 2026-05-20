@@ -18,7 +18,7 @@
   --ochre:           #A6896E;
   --line:            rgba(27, 31, 42, 0.12);
   --line-soft:       rgba(27, 31, 42, 0.06);
-  --serif:           'Fraunces', Georgia, serif;
+  --serif:           'Instrument Serif', Georgia, serif;
   --sans:            'DM Sans', -apple-system, sans-serif;
   --container:       1180px;
   --container-narrow: 720px;
@@ -134,7 +134,6 @@ button {
   letter-spacing: -0.018em;
   margin: 48px 0 20px;
   color: var(--ink);
-  font-variation-settings: 'opsz' 144;
 }
 
 .article-body h3 {

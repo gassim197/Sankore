@@ -27,7 +27,7 @@ export default {
         ochre: '#A6896E',
       },
       fontFamily: {
-        serif: ['Fraunces', 'Georgia', 'serif'],
+        serif: ['Instrument Serif', 'Georgia', 'serif'],
         sans: ['DM Sans', '-apple-system', 'sans-serif'],
       },
       maxWidth: {

@@ -15,7 +15,7 @@ const sorted = allArticles.sort(
   (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
 );
 
-const featured = sorted.find(a => a.data.featured) ?? sorted[0];
+const featured = sorted[0];
 const recent   = sorted.filter(a => a.slug !== featured?.slug).slice(0, 6);
 // Si pas assez d'articles non-featured, on complète avec le featured
 const displayRecent = recent.length > 0 ? recent : sorted.slice(0, 6);

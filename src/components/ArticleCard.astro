@@ -19,7 +19,7 @@ const href      = `/articles/${article.slug}`;
 <a href={href} class="card" data-category={category}>
   <div class="card-illus">
     {image
-      ? <img src={image} alt={title} class="card-image" loading="lazy" />
+      ? <img src={image} alt={title} class="card-image" loading="lazy" decoding="async" width="800" height="450" />
       : <Illustration type={illustration} number={illustrationProps?.number} />
     }
   </div>

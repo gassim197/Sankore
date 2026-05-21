@@ -117,7 +117,7 @@ const jsonLd = {
   <!-- ══ HERO PLEINE LARGEUR ════════════════════════════ -->
   <div class="article-feature" aria-hidden={!image}>
     {image
-      ? <img src={image} alt={title} class="article-feature-image" />
+      ? <img src={image} alt={title} class="article-feature-image" loading="eager" fetchpriority="high" decoding="async" width="1200" height="630" />
       : <Illustration type={illustration} number={illustrationProps?.number} />
     }
   </div>

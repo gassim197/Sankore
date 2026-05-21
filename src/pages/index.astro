@@ -74,7 +74,7 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
 
         <div class="hero-illus">
           {featured.data.image
-            ? <img src={featured.data.image} alt={featured.data.title} class="hero-image" />
+            ? <img src={featured.data.image} alt={featured.data.title} class="hero-image" loading="eager" fetchpriority="high" decoding="async" width="1200" height="630" />
             : <Illustration type={featured.data.illustration} number={featured.data.illustrationProps?.number} />
           }
         </div>

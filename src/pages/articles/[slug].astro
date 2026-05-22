@@ -6,6 +6,7 @@ import ReadingProgress from '../../components/ReadingProgress.astro';
 import ContinueReading from '../../components/ContinueReading.astro';
 import Illustration from '../../components/Illustration.astro';
 import Ornament from '../../components/Ornament.astro';
+import Comments from '../../components/Comments.astro';
 import { formatDate } from '../../utils/formatDate';
 import { readingTime } from '../../utils/readingTime';
 import { CATEGORY_LABELS } from '../../utils/categories';
@@ -195,6 +196,9 @@ const jsonLd = {
       Copier le lien
     </button>
   </div>
+
+  <!-- ══ COMMENTAIRES GISCUS ═════════════════════════════ -->
+  <Comments />
 
   <!-- ══ ARTICLES LIÉS ════════════════════════════════════ -->
   {related.length > 0 && (

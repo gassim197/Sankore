@@ -1,0 +1,325 @@
+---
+// Popup newsletter — visible sur les pages article uniquement
+// Déclencheur : 50% du scroll · Masquage 7 jours via localStorage
+---
+
+<div
+  id="nl-popup-overlay"
+  class="nl-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Inscription à la newsletter Sankoré"
+  aria-hidden="true"
+>
+  <div class="nl-box">
+    <button class="nl-close" id="nl-close" aria-label="Fermer la popup">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="nl-eyebrow">La lettre du dimanche</div>
+
+    <h2 class="nl-title">Recevez Sankoré<br>chaque dimanche</h2>
+
+    <p class="nl-desc">
+      Un article long le mardi, un format court le vendredi, et la lettre
+      du dimanche qui relie tout. L'IA au travail, vue d'Afrique.
+    </p>
+
+    <form class="nl-form" id="nl-form" novalidate>
+      <input
+        type="email"
+        name="email"
+        id="nl-email"
+        placeholder="votre@email.com"
+        required
+        autocomplete="email"
+        aria-label="Votre adresse e-mail"
+      />
+      <button type="submit" id="nl-submit">S'abonner</button>
+    </form>
+
+    <p class="nl-note">Pas de spam. Désabonnement en un clic.</p>
+    <p class="nl-error" id="nl-error" aria-live="polite"></p>
+    <p class="nl-success" id="nl-success" aria-live="polite">Merci&nbsp;— à dimanche&nbsp;!</p>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY  = 'sankore_newsletter_popup_dismissed';
+  const DISMISS_DAYS = 7 * 24 * 60 * 60 * 1000;
+
+  function isDismissed(): boolean {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    return Date.now() - parseInt(raw, 10) < DISMISS_DAYS;
+  }
+
+  function saveDismiss(): void {
+    localStorage.setItem(STORAGE_KEY, Date.now().toString());
+  }
+
+  const overlay  = document.getElementById('nl-popup-overlay')!;
+  const closeBtn = document.getElementById('nl-close')!;
+  const form     = document.getElementById('nl-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('nl-submit') as HTMLButtonElement;
+  const errorEl  = document.getElementById('nl-error')!;
+  const successEl = document.getElementById('nl-success')!;
+
+  function show(): void {
+    overlay.classList.add('nl-visible');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function hide(): void {
+    overlay.classList.remove('nl-visible');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function dismiss(): void {
+    saveDismiss();
+    hide();
+  }
+
+  if (!isDismissed()) {
+    let triggered = false;
+
+    const onScroll = (): void => {
+      if (triggered) return;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable > 0 && window.scrollY / scrollable >= 0.5) {
+        triggered = true;
+        show();
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Fermeture — croix
+    closeBtn.addEventListener('click', dismiss);
+
+    // Fermeture — clic sur l'overlay
+    overlay.addEventListener('click', (e: MouseEvent) => {
+      if (e.target === overlay) dismiss();
+    });
+
+    // Fermeture — touche Échap
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && overlay.classList.contains('nl-visible')) dismiss();
+    });
+
+    // Soumission du formulaire
+    form.addEventListener('submit', async (e: Event) => {
+      e.preventDefault();
+      const email = (document.getElementById('nl-email') as HTMLInputElement).value.trim();
+      if (!email) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi…';
+      errorEl.style.display = 'none';
+
+      try {
+        const res  = await fetch('/api/subscribe', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (data.ok) {
+          form.style.display    = 'none';
+          successEl.style.display = 'block';
+          saveDismiss();
+          setTimeout(hide, 2500);
+        } else {
+          submitBtn.disabled    = false;
+          submitBtn.textContent = "S'abonner";
+          errorEl.textContent   = data.error ?? 'Une erreur est survenue.';
+          errorEl.style.display = 'block';
+        }
+      } catch {
+        submitBtn.disabled    = false;
+        submitBtn.textContent = "S'abonner";
+        errorEl.textContent   = 'Connexion impossible. Vérifiez votre réseau.';
+        errorEl.style.display = 'block';
+      }
+    });
+  }
+</script>
+
+<style>
+  /* ── Overlay ─────────────────────────────────────────────── */
+  .nl-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .nl-overlay.nl-visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ── Boîte ───────────────────────────────────────────────── */
+  .nl-box {
+    background: var(--paper);
+    max-width: 440px;
+    width: 100%;
+    padding: 48px 40px 40px;
+    border-radius: 3px;
+    box-shadow: 0 24px 64px rgba(27, 31, 42, 0.22);
+    position: relative;
+    transform: translateY(18px);
+    transition: transform 0.35s ease;
+  }
+
+  .nl-overlay.nl-visible .nl-box {
+    transform: translateY(0);
+  }
+
+  /* ── Bouton fermeture ────────────────────────────────────── */
+  .nl-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: var(--ink-mute);
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    border-radius: 2px;
+  }
+
+  .nl-close:hover { color: var(--ink); }
+  .nl-close:focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 2px;
+  }
+
+  /* ── Contenu ─────────────────────────────────────────────── */
+  .nl-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .nl-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.18;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    margin-bottom: 16px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .nl-desc {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+
+  /* ── Formulaire ──────────────────────────────────────────── */
+  .nl-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .nl-form input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid var(--paper-3);
+    background: #fff;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    border-radius: 2px;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+
+  .nl-form input:focus { border-color: var(--terracotta); }
+
+  .nl-form input::placeholder { color: var(--ink-mute); }
+
+  .nl-form button {
+    width: 100%;
+    padding: 14px;
+    background: var(--terracotta);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .nl-form button:hover    { background: var(--terracotta-deep); }
+  .nl-form button:disabled { opacity: 0.6; cursor: wait; }
+
+  /* ── États ───────────────────────────────────────────────── */
+  .nl-note {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-align: center;
+  }
+
+  .nl-error {
+    display: none;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--terracotta);
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+
+  .nl-success {
+    display: none;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--gold);
+    text-align: center;
+    padding: 20px 0 8px;
+  }
+
+  /* ── Mobile ──────────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .nl-box {
+      padding: 40px 24px 32px;
+    }
+
+    .nl-title { font-size: 22px; }
+  }
+</style>

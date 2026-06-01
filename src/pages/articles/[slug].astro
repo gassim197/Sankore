@@ -7,6 +7,7 @@ import ContinueReading from '../../components/ContinueReading.astro';
 import Illustration from '../../components/Illustration.astro';
 import Ornament from '../../components/Ornament.astro';
 import Comments from '../../components/Comments.astro';
+import NewsletterPopup from '../../components/NewsletterPopup.astro';
 import { formatDate } from '../../utils/formatDate';
 import { readingTime } from '../../utils/readingTime';
 import { CATEGORY_LABELS } from '../../utils/categories';
@@ -236,6 +237,9 @@ const jsonLd = {
 
   <!-- ══ ENCART FLOTTANT "LIRE ENSUITE" ══════════════════ -->
   <ContinueReading next={nextArticle} />
+
+  <!-- ══ POPUP NEWSLETTER (50% scroll, masquage 7j) ═══════ -->
+  <NewsletterPopup />
 
 </BaseLayout>
 

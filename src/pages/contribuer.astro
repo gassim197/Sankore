@@ -4,210 +4,879 @@ import NewsletterBand from '../components/NewsletterBand.astro';
 ---
 
 <BaseLayout
-  title="Écrire avec nous — Sankoré"
-  description="Sankoré accueille des contributions de cadres, experts et praticiens du continent. Proposez votre analyse, retour d'expérience ou tutoriel."
+  title="Écrire pour Sankoré — Appel à contributions"
+  description="Sankoré ouvre ses colonnes aux praticiens, entrepreneurs et experts africains. Pitch en 5 lignes, réponse en 7 jours. Partagez votre expérience de l'IA et de la transformation digitale."
 >
+  <main class="contribuer-page">
 
-  <!-- ══ HERO ═══════════════════════════════════════════ -->
-  <section class="contrib-hero">
-    <div class="contrib-hero-inner">
-      <p class="eyebrow">Contribuer à Sankoré</p>
-      <h1>Vous avez une expertise à <em>partager</em>. Écrivons ensemble.</h1>
-      <p class="sub">
-        Sankoré accueille des contributions ponctuelles de cadres, experts
-        et praticiens du continent africain francophone.
-      </p>
-    </div>
-  </section>
+    <!-- ── Hero ──────────────────────────────────────────────── -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-label">Appel à contributions</p>
+        <h1 class="page-title">Écrire pour <em>Sankoré</em></h1>
+        <p class="page-subtitle">
+          Sankoré cherche des voix du terrain — praticiens, entrepreneurs,
+          consultants et chercheurs africains qui ont quelque chose à dire sur
+          l'IA et la transformation digitale. Votre expérience mérite un
+          lectorat à sa hauteur.
+        </p>
+        <nav class="section-nav" aria-label="Sections de la page">
+          <a href="#profils">Pour qui</a>
+          <a href="#formats">Les formats</a>
+          <a href="#ligne-editoriale">Ligne éditoriale</a>
+          <a href="#transparence">Transparence</a>
+          <a href="#processus">Le processus</a>
+          <a href="#candidature" class="nav-cta">Candidater →</a>
+        </nav>
+      </div>
+    </section>
 
-  <!-- ══ GRILLE 4 BLOCS ════════════════════════════════ -->
-  <div class="contrib-grid">
-    <div class="contrib-block">
-      <p class="step">i. Pour qui</p>
-      <h3>Qui peut écrire</h3>
-      <ul>
-        <li>Cadres en poste (chef de projet, RH, commercial, IT, communication)</li>
-        <li>Entrepreneurs et fondateurs de startups</li>
-        <li>Consultants spécialisés en IA, digital, gestion</li>
-        <li>Universitaires et chercheurs en sciences appliquées</li>
-        <li>Étudiants avancés (master, doctorat) avec un sujet original</li>
-      </ul>
-    </div>
+    <!-- ── 01 · À qui s'adresse cet appel ───────────────────── -->
+    <section class="content-section" id="profils">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">01</span>
+          <h2>À qui s'adresse cet appel</h2>
+          <p>
+            Pas besoin d'être journaliste. Vous avez une expérience réelle
+            et l'envie de la partager — c'est ce qui compte.
+          </p>
+        </div>
+        <div class="profiles-grid">
 
-    <div class="contrib-block">
-      <p class="step">ii. Quoi</p>
-      <h3>Quels formats</h3>
-      <ul>
-        <li><strong>Analyse</strong> — 1 500 à 2 500 mots, sur un sujet de fond</li>
-        <li><strong>Retour d'expérience</strong> — 1 000 à 1 800 mots, projet réel et leçons</li>
-        <li><strong>Tribune</strong> — 800 à 1 200 mots, opinion argumentée</li>
-        <li><strong>Tutoriel</strong> — 1 000 à 2 000 mots avec captures et exemples</li>
-        <li><strong>Comparatif d'outils</strong> — 1 200 à 2 000 mots, méthode rigoureuse</li>
-      </ul>
-    </div>
+          <div class="profile-card">
+            <span class="profile-num">01</span>
+            <h3>Le praticien</h3>
+            <p>
+              Cadre en poste — chef de projet, DRH, directeur commercial,
+              responsable IT, communication. Vous utilisez l'IA dans votre
+              travail quotidien et avez des retours concrets, bons ou mauvais,
+              à partager avec vos pairs.
+            </p>
+          </div>
 
-    <div class="contrib-block">
-      <p class="step">iii. Critères</p>
-      <h3>Ce qu'on attend</h3>
-      <ul>
-        <li>Pertinence pour le contexte ouest-africain francophone</li>
-        <li>Argumentation fondée sur l'expérience ou des sources</li>
-        <li>Ton pragmatique, jamais hype, jamais condescendant</li>
-        <li>Pas d'auto-promotion déguisée</li>
-        <li>Originalité — pas un texte déjà publié ailleurs</li>
-      </ul>
-    </div>
+          <div class="profile-card">
+            <span class="profile-num">02</span>
+            <h3>L'entrepreneur</h3>
+            <p>
+              Fondateur de startup ou dirigeant de PME en cours de
+              digitalisation. Vos galères, vos victoires, vos pivots — tout
+              ça nous intéresse, à condition d'être honnête sur ce qui n'a
+              pas marché autant que sur ce qui a fonctionné.
+            </p>
+          </div>
 
-    <div class="contrib-block">
-      <p class="step">iv. Comment</p>
-      <h3>Le processus</h3>
-      <ul>
-        <li>Vous nous envoyez un pitch (3-5 lignes) via le formulaire</li>
-        <li>Nous répondons sous 7 jours avec un avis et des conseils</li>
-        <li>Si validé : 2 à 3 semaines pour rédiger</li>
-        <li>Édition collaborative : 1 à 2 allers-retours</li>
-        <li>Publication avec votre signature et bio</li>
-      </ul>
-    </div>
-  </div>
+          <div class="profile-card">
+            <span class="profile-num">03</span>
+            <h3>Le consultant expert</h3>
+            <p>
+              Spécialiste en IA, transformation digitale, stratégie ou
+              gestion. Vous avez une analyse à proposer sur un sujet que
+              vous maîtrisez profondément — et des cas concrets pour
+              l'illustrer sans rester dans l'abstrait.
+            </p>
+          </div>
 
-  <!-- ══ FORMULAIRE ════════════════════════════════════ -->
-  <section class="contrib-form-section">
-    <h2>Proposez votre sujet</h2>
-    <p class="form-intro">
-      Remplissez le formulaire ci-dessous pour proposer un sujet d'article.
-    </p>
-    <div class="gform-wrapper">
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSfuuJ3RgwrNF_Npk7TNoyJXaV5AteNPDSCTRfkMlZjpwB61AA/viewform?embedded=true"
-        width="100%"
-        height="900"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        title="Formulaire de pitch — Sankoré"
-        loading="lazy"
-      >Chargement du formulaire…</iframe>
-    </div>
-  </section>
+          <div class="profile-card">
+            <span class="profile-num">04</span>
+            <h3>Le chercheur ou académique</h3>
+            <p>
+              Universitaire, doctorant ou étudiant avancé avec un angle
+              original. L'académique enrichit le débat si le propos reste
+              accessible, ancré dans la pratique, et utile pour un
+              professionnel pressé — pas pour une thèse.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 · Quatre formats ──────────────────────────────── -->
+    <section class="content-section alt-bg" id="formats">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">02</span>
+          <h2>Quatre formats au choix selon votre temps</h2>
+          <p>
+            On ne vous demande pas un livre. Choisissez le format qui
+            correspond à votre sujet et au temps que vous pouvez
+            raisonnablement y consacrer.
+          </p>
+        </div>
+        <div class="formats-list">
+
+          <div class="format-item">
+            <div class="format-meta">
+              <span class="format-badge">Analyse</span>
+              <span class="format-length">1 500 – 2 500 mots</span>
+              <span class="format-time">≈ 3 à 5 heures</span>
+            </div>
+            <div class="format-body">
+              <p>
+                Pour aller au fond d'un sujet. Votre expertise sur un enjeu
+                majeur, documentée et illustrée par des cas concrets. Idéal
+                si vous avez quelque chose à dire que personne d'autre ne
+                peut dire à votre place.
+              </p>
+              <p class="format-example">
+                <em>Exemple : « Comment j'ai automatisé le reporting de mon équipe RH avec ChatGPT — et ce que ça a vraiment changé »</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="format-item">
+            <div class="format-meta">
+              <span class="format-badge">Retour d'expérience</span>
+              <span class="format-length">1 000 – 1 800 mots</span>
+              <span class="format-time">≈ 2 à 3 heures</span>
+            </div>
+            <div class="format-body">
+              <p>
+                Vous avez mis en place quelque chose — un projet, une
+                migration, un outil. Racontez-le avec honnêteté : le
+                contexte, ce qui a fonctionné, ce qui n'a pas marché, et
+                ce que vous referiez différemment aujourd'hui.
+              </p>
+              <p class="format-example">
+                <em>Exemple : « Déploiement de Notion dans une PME sénégalaise de 30 personnes : 6 mois plus tard »</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="format-item">
+            <div class="format-meta">
+              <span class="format-badge">Tribune</span>
+              <span class="format-length">800 – 1 200 mots</span>
+              <span class="format-time">≈ 1 à 2 heures</span>
+            </div>
+            <div class="format-body">
+              <p>
+                Vous avez une position sur un sujet d'actualité. Défendez-la.
+                Une opinion argumentée, sourcée, qui tranche — pas un
+                éditorial de complaisance ni un texte de consensus qui
+                dit tout et son contraire.
+              </p>
+              <p class="format-example">
+                <em>Exemple : « Pourquoi les formations IA générique ne servent à rien pour les managers africains »</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="format-item">
+            <div class="format-meta">
+              <span class="format-badge">Tutoriel</span>
+              <span class="format-length">1 200 – 2 000 mots</span>
+              <span class="format-time">≈ 3 à 5 heures</span>
+            </div>
+            <div class="format-body">
+              <p>
+                Une méthode, un outil, un workflow. Étape par étape, avec
+                des exemples réels tirés de votre pratique. Ce format
+                attire les lecteurs qui veulent <em>faire</em>, pas
+                seulement lire — c'est souvent le plus partagé.
+              </p>
+              <p class="format-example">
+                <em>Exemple : « Comment utiliser Claude pour rédiger un rapport d'activité mensuel en 20 minutes »</em>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 · Ligne éditoriale ────────────────────────────── -->
+    <section class="content-section" id="ligne-editoriale">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">03</span>
+          <h2>Notre ligne éditoriale</h2>
+          <p>
+            Quatre principes non négociables qui définissent ce qu'on
+            publie, et ce qu'on refuse — poliment mais fermement.
+          </p>
+        </div>
+        <div class="principles-grid">
+
+          <div class="principle-card">
+            <span class="principle-mark">❦</span>
+            <h3>Africain par nature</h3>
+            <p>
+              Pas seulement un regard africain sur des tendances mondiales.
+              Des cas réels, des entreprises d'ici, des chiffres du terrain.
+              L'IA à Conakry, Dakar, Abidjan, Kinshasa — pas à San
+              Francisco par procuration.
+            </p>
+          </div>
+
+          <div class="principle-card">
+            <span class="principle-mark">❦</span>
+            <h3>Pragmatique avant tout</h3>
+            <p>
+              Nos lecteurs ont des décisions à prendre la semaine
+              prochaine. Chaque article doit apporter quelque chose
+              d'actionnable, pas seulement d'intéressant. La question
+              permanente : "Et alors, qu'est-ce qu'on fait ?"
+            </p>
+          </div>
+
+          <div class="principle-card">
+            <span class="principle-mark">❦</span>
+            <h3>Rigoureux, pas académique</h3>
+            <p>
+              On argumente, on cite ses sources, on évite les généralités
+              molles. Mais on écrit pour des professionnels occupés, pas
+              pour une thèse. La clarté prime sur l'exhaustivité — toujours.
+            </p>
+          </div>
+
+          <div class="principle-card">
+            <span class="principle-mark">❦</span>
+            <h3>Sobre et respectueux</h3>
+            <p>
+              Pas de buzzwords, pas de condescendance, pas d'auto-promotion
+              déguisée. On s'adresse à des égaux. Le lecteur de Sankoré
+              est au moins aussi compétent que l'auteur — on écrit en
+              conséquence.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 · Transparence ─────────────────────────────────── -->
+    <section class="content-section alt-bg" id="transparence">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">04</span>
+          <h2>Transparence sur cette première vague</h2>
+          <p>
+            On préfère être clairs dès le départ sur ce qu'on peut
+            offrir — et sur ce qu'on ne peut pas encore faire.
+          </p>
+        </div>
+        <div class="transparency-blocks">
+
+          <div class="transparency-block">
+            <h3>Rémunération</h3>
+            <p>
+              Sankoré est un projet naissant, financièrement indépendant.
+              Nous ne rémunérons pas encore les contributions externes. En
+              échange : votre byline avec bio complète, un lien vers vos
+              réseaux ou votre site, et l'accès à une audience qualifiée
+              de cadres et entrepreneurs en Afrique francophone.
+            </p>
+          </div>
+
+          <div class="transparency-block">
+            <h3>Droits sur votre texte</h3>
+            <p>
+              Vous conservez la propriété intellectuelle de votre article.
+              Vous nous accordez une licence de publication non exclusive.
+              Après 30 jours, vous êtes libre de republier votre texte
+              ailleurs, avec mention de première publication sur Sankoré.
+            </p>
+          </div>
+
+          <div class="transparency-block">
+            <h3>Calendrier</h3>
+            <p>
+              Cette première vague vise des publications entre juillet et
+              décembre 2026. Les candidatures sont traitées au fil de
+              l'eau, par ordre de réception. Un article validé est publié
+              dans les 4 semaines suivant la remise de la version finale.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 05 · Comment ça se passe ──────────────────────────── -->
+    <section class="content-section" id="processus">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">05</span>
+          <h2>Comment ça se passe concrètement</h2>
+          <p>
+            Quatre étapes, pas de surprise. On s'engage à être réactifs
+            et à vous donner un retour éditorial honnête.
+          </p>
+        </div>
+        <div class="steps-list">
+
+          <div class="step-item">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>Vous nous envoyez un pitch</h3>
+              <p>
+                Via le formulaire ci-dessous : votre sujet en 3 à 5 lignes,
+                votre angle, et pourquoi vous êtes la bonne personne pour
+                l'écrire. Pas besoin d'un article complet à ce stade —
+                une idée claire et argumentée suffit.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>On vous répond sous 7 jours</h3>
+              <p>
+                Avis éditorial, questions éventuelles, ajustements suggérés.
+                Pas de refus secs : si le sujet n'est pas pour nous, on
+                vous explique pourquoi et on vous dit ce qui manquerait
+                pour qu'il le devienne.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>Vous rédigez à votre rythme</h3>
+              <p>
+                2 à 3 semaines pour écrire, avec un guide de style simple
+                d'une page. L'équipe reste disponible si vous avez des
+                questions en cours de route. Pas de deadline intenable —
+                on préfère un article bien écrit à un article bâclé.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <h3>On édite ensemble</h3>
+              <p>
+                1 à 2 allers-retours par email ou Google Doc. Aucune
+                modification majeure sans votre accord. Publication avec
+                votre signature, votre bio, et votre photo si vous le
+                souhaitez.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 06 · Formulaire de candidature ────────────────────── -->
+    <section class="form-section" id="candidature">
+      <div class="container">
+        <div class="form-header">
+          <h2>Formulaire de candidature</h2>
+          <p>
+            Prenez 10 minutes pour nous décrire votre sujet. On lit tout
+            et on répond à chaque candidature — même pour dire non.
+          </p>
+        </div>
+
+        <form class="contrib-form" id="contribForm" novalidate>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="c-nom">Nom complet <span class="req">*</span></label>
+              <input type="text" id="c-nom" name="nom" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="c-email">Email <span class="req">*</span></label>
+              <input type="email" id="c-email" name="email" required autocomplete="email" placeholder="votre@email.com" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="c-role">Rôle / poste actuel <span class="req">*</span></label>
+              <input type="text" id="c-role" name="role" required placeholder="Ex : Chef de projet chez Orange Guinée" />
+            </div>
+            <div class="field">
+              <label for="c-ville">Ville et pays</label>
+              <input type="text" id="c-ville" name="ville" placeholder="Ex : Conakry, Guinée" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="c-format">Format souhaité <span class="req">*</span></label>
+              <select id="c-format" name="format" required>
+                <option value="">— Choisir un format —</option>
+                <option value="Analyse">Analyse (1 500–2 500 mots)</option>
+                <option value="Retour d'expérience">Retour d'expérience (1 000–1 800 mots)</option>
+                <option value="Tribune">Tribune (800–1 200 mots)</option>
+                <option value="Tutoriel">Tutoriel ou guide pratique (1 200–2 000 mots)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="c-lien">Lien <small>(LinkedIn, site, autre publication)</small></label>
+              <input type="url" id="c-lien" name="lien" placeholder="https://" />
+            </div>
+          </div>
+
+          <div class="field field-full">
+            <label for="c-titre">Titre provisoire du sujet <span class="req">*</span></label>
+            <input
+              type="text"
+              id="c-titre"
+              name="titre"
+              required
+              placeholder="Ex : Comment j'ai automatisé la facturation de ma PME avec Make"
+            />
+          </div>
+
+          <div class="field field-full">
+            <label for="c-pitch">
+              Pitch en 3 à 5 lignes <span class="req">*</span>
+              <small>Votre angle, l'argument principal, pourquoi vous êtes la bonne personne pour l'écrire</small>
+            </label>
+            <textarea
+              id="c-pitch"
+              name="pitch"
+              required
+              rows="6"
+              placeholder="Décrivez votre sujet, votre angle, et ce que le lecteur en retirera concrètement…"
+            ></textarea>
+          </div>
+
+          <p class="form-notice" aria-live="polite" id="contribError"></p>
+
+          <button type="submit" class="btn-submit">
+            Envoyer ma candidature
+          </button>
+
+        </form>
+
+        <div class="form-success" id="contribSuccess" aria-live="polite">
+          <p class="success-mark">✓</p>
+          <h3>Candidature reçue !</h3>
+          <p>Merci. Nous lisons chaque message et vous répondrons dans les 7 jours ouvrés.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <NewsletterBand />
-
 </BaseLayout>
 
+<script>
+  const form    = document.getElementById('contribForm')   as HTMLFormElement | null;
+  const success = document.getElementById('contribSuccess');
+  const errorEl = document.getElementById('contribError');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form) return;
+
+    const val = (name: string) =>
+      (form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null)
+        ?.value.trim() ?? '';
+
+    const nom    = val('nom');
+    const email  = val('email');
+    const role   = val('role');
+    const format = val('format');
+    const titre  = val('titre');
+    const pitch  = val('pitch');
+    const ville  = val('ville');
+    const lien   = val('lien');
+
+    if (!nom || !email || !role || !format || !titre || !pitch) {
+      if (errorEl) {
+        errorEl.textContent = 'Veuillez remplir tous les champs obligatoires (marqués *).';
+        errorEl.className = 'form-notice error-msg';
+      }
+      return;
+    }
+
+    const btn = form.querySelector('.btn-submit') as HTMLButtonElement | null;
+    if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+    if (errorEl) { errorEl.textContent = ''; errorEl.className = 'form-notice'; }
+
+    try {
+      const res  = await fetch('/api/contribute', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ nom, email, role, format, titre, pitch, ville, lien }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'flex';
+      } else {
+        if (btn) { btn.disabled = false; btn.textContent = 'Envoyer ma candidature'; }
+        if (errorEl) {
+          errorEl.textContent = data.error ?? 'Une erreur est survenue. Réessayez.';
+          errorEl.className = 'form-notice error-msg';
+        }
+      }
+    } catch {
+      if (btn) { btn.disabled = false; btn.textContent = 'Envoyer ma candidature'; }
+      if (errorEl) {
+        errorEl.textContent = 'Connexion impossible. Vérifiez votre réseau et réessayez.';
+        errorEl.className = 'form-notice error-msg';
+      }
+    }
+  });
+</script>
 
 <style>
-  /* ── Hero ──────────────────────────────────────────── */
-  .contrib-hero {
-    padding: 80px 0 60px;
-  }
+  .contribuer-page { background: var(--paper); }
 
-  .contrib-hero-inner {
-    max-width: 880px;
+  .container {
+    max-width: 1040px;
     margin: 0 auto;
-    padding: 0 32px;
-    text-align: center;
+    padding: 0 24px;
   }
 
-  .contrib-hero-inner :global(.eyebrow) {
+  /* ── Hero ───────────────────────────────────────────────── */
+  .page-hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--paper-3);
+  }
+
+  .page-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+  }
+
+  .page-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     margin-bottom: 20px;
   }
 
-  h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: 56px;
-    line-height: 1.08;
-    letter-spacing: -0.028em;
-    margin-bottom: 28px;
-    font-variation-settings: 'opsz' 144;
-  }
-
-  h1 em {
+  .page-title em {
     font-style: italic;
     color: var(--terracotta);
   }
 
-  .sub {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 22px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    font-weight: 300;
-    max-width: 660px;
-    margin: 0 auto;
-  }
-
-  /* ── Grille 4 blocs ─────────────────────────────────── */
-  .contrib-grid {
-    max-width: var(--container);
-    margin: 60px auto;
-    padding: 0 32px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
-
-  .contrib-block {
-    padding: 36px;
-    background: var(--paper-2);
-  }
-
-  .step {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 14px;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  .contrib-block h3 {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 1.2;
-    margin-bottom: 18px;
-    letter-spacing: -0.015em;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  li {
-    font-size: 15px;
+  .page-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
     line-height: 1.6;
     color: var(--ink-soft);
-    padding: 10px 0 10px 24px;
-    border-bottom: 1px solid var(--line-soft);
-    position: relative;
+    max-width: 680px;
+    margin-bottom: 40px;
   }
 
-  li:last-child { border-bottom: none; }
+  .section-nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
-  li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--terracotta);
+  .section-nav a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--paper-3);
+    padding: 8px 18px;
+    background: var(--paper-2);
+    transition: all 0.2s;
+  }
+
+  .section-nav a:hover {
+    background: var(--terracotta);
+    color: #fff;
+    border-color: var(--terracotta);
+  }
+
+  .section-nav a.nav-cta {
+    background: var(--terracotta);
+    color: #fff;
+    border-color: var(--terracotta);
+  }
+
+  .section-nav a.nav-cta:hover {
+    background: var(--terracotta-deep);
+    border-color: var(--terracotta-deep);
+  }
+
+  /* ── Sections génériques ───────────────────────────────── */
+  .content-section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--paper-3);
+  }
+
+  .content-section.alt-bg { background: var(--paper-2); }
+
+  .section-header { margin-bottom: 48px; }
+
+  .section-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .section-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .section-header p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  /* ── 01 · Profils ───────────────────────────────────────── */
+  .profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .profile-card {
+    background: var(--paper-2);
+    border: 1px solid var(--paper-3);
+    padding: 32px;
+    transition: border-color 0.2s;
+  }
+
+  .profile-card:hover { border-color: var(--terracotta); }
+
+  .profile-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .profile-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .profile-card p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ── 02 · Formats ─────────────────────────────────────── */
+  .formats-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--paper-3);
+  }
+
+  .format-item {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--paper-3);
+    align-items: start;
+  }
+
+  .format-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+  }
+
+  .format-badge {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--terracotta);
+    padding: 5px 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .format-length {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
     font-weight: 500;
   }
 
-  li strong { color: var(--ink); font-weight: 600; }
+  .format-time {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink-mute);
+  }
 
-  /* ── Formulaire Google Form ──────────────────────────── */
-  .contrib-form-section {
-    max-width: 800px;
-    margin: 0 auto 0;
-    padding: 60px 32px;
+  .format-body p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .format-body p:last-child { margin-bottom: 0; }
+
+  .format-example {
+    font-size: 14px !important;
+    color: var(--ink-mute) !important;
+    padding: 12px 16px;
+    border-left: 2px solid var(--paper-3);
+    margin-top: 14px !important;
+    background: rgba(27,31,42,0.03);
+  }
+
+  /* ── 03 · Principes ────────────────────────────────────── */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--paper-3);
+    border-left: 1px solid var(--paper-3);
+  }
+
+  .principle-card {
+    padding: 36px;
+    border-right: 1px solid var(--paper-3);
+    border-bottom: 1px solid var(--paper-3);
+  }
+
+  .principle-mark {
+    display: block;
+    font-size: 22px;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .principle-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .principle-card p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ── 04 · Transparence ──────────────────────────────────── */
+  .transparency-blocks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .transparency-block {
+    padding: 32px;
+    background: var(--paper);
+    border: 1px solid var(--paper-3);
+    border-top: 3px solid var(--terracotta);
+  }
+
+  .transparency-block h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .transparency-block p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ── 05 · Étapes ────────────────────────────────────────── */
+  .steps-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--paper-3);
+  }
+
+  .step-item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--paper-3);
+    align-items: start;
+  }
+
+  .step-item:last-child { border-bottom: none; }
+
+  .step-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 44px;
+    font-weight: 400;
+    color: var(--terracotta);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    padding-top: 2px;
+  }
+
+  .step-content h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .step-content p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 640px;
+  }
+
+  /* ── 06 · Formulaire ────────────────────────────────────── */
+  .form-section {
     background: var(--ink);
     color: var(--paper);
+    padding: 80px 0;
     position: relative;
   }
 
-  .contrib-form-section::before {
+  .form-section::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -215,46 +884,178 @@ import NewsletterBand from '../components/NewsletterBand.astro';
     background: linear-gradient(90deg, var(--terracotta), var(--gold));
   }
 
-  .contrib-form-section h2 {
-    font-family: var(--serif);
+  .form-header { margin-bottom: 48px; }
+
+  .form-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
     font-weight: 400;
-    font-size: 32px;
-    margin-bottom: 12px;
+    color: var(--paper);
     letter-spacing: -0.02em;
-    font-variation-settings: 'opsz' 144;
+    margin-bottom: 12px;
   }
 
-  .form-intro {
-    color: rgba(244, 237, 224, 0.7);
-    font-size: 15px;
-    margin-bottom: 32px;
+  .form-header p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: rgba(244, 237, 224, 0.65);
     line-height: 1.6;
   }
 
-  .gform-wrapper {
-    width: 100%;
-    border-radius: 2px;
-    overflow: hidden;
+  .contrib-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
   }
 
-  .gform-wrapper iframe {
-    display: block;
-    width: 100%;
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(244, 237, 224, 0.85);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .field label small {
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(244, 237, 224, 0.45);
+  }
+
+  .req {
+    color: var(--terracotta);
+    margin-left: 2px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: rgba(244, 237, 224, 0.06);
+    border: 1px solid rgba(244, 237, 224, 0.15);
+    color: var(--paper);
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: rgba(244, 237, 224, 0.28);
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .field select { cursor: pointer; }
+
+  .field select option {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .form-notice {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    min-height: 20px;
+    margin: 0;
+  }
+
+  .error-msg { color: #e8836a; }
+
+  .btn-submit {
+    background: var(--terracotta);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 16px 36px;
     border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-start;
+    letter-spacing: 0.02em;
   }
 
-  /* ── Responsive ─────────────────────────────────────── */
-  @media (max-width: 880px) {
-    .contrib-grid { grid-template-columns: 1fr; gap: 24px; }
-    h1 { font-size: 40px; }
+  .btn-submit:hover { background: var(--terracotta-deep); }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: wait;
   }
 
-  @media (max-width: 580px) {
-    h1 { font-size: 32px; }
-    .sub { font-size: 18px; }
-    .row { grid-template-columns: 1fr; }
-    .contrib-form-section { padding: 40px 20px; }
-    .contrib-hero-inner { padding: 0 20px; }
-    .contrib-grid { padding: 0 20px; }
+  .form-success {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 48px 0;
+    max-width: 480px;
+    gap: 12px;
+  }
+
+  .success-mark {
+    font-size: 36px;
+    color: var(--gold);
+    line-height: 1;
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .form-success h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--paper);
+    margin: 0;
+  }
+
+  .form-success p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: rgba(244, 237, 224, 0.65);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .profiles-grid       { grid-template-columns: 1fr; }
+    .transparency-blocks { grid-template-columns: 1fr; }
+    .principles-grid     { grid-template-columns: 1fr; border-left: none; }
+    .format-item         { grid-template-columns: 1fr; gap: 16px; }
+    .step-item           { grid-template-columns: 56px 1fr; gap: 20px; }
+    .form-row            { grid-template-columns: 1fr; }
+    .content-section     { padding: 56px 0; }
+    .page-hero           { padding: 48px 0 40px; }
+    .form-section        { padding: 56px 0; }
+  }
+
+  @media (max-width: 480px) {
+    .step-item    { grid-template-columns: 1fr; gap: 8px; }
+    .step-number  { font-size: 36px; }
+    .btn-submit   { width: 100%; text-align: center; align-self: stretch; }
   }
 </style>

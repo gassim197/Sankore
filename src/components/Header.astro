@@ -1,13 +1,22 @@
 ---
 const pathname = Astro.url.pathname;
 
-const navLinks = [
+type NavItem =
+  | { href: string; label: string }
+  | { label: string; children: { href: string; label: string }[] };
+
+const navLinks: NavItem[] = [
   { href: '/categories/ia-au-travail',         label: 'IA au travail' },
   { href: '/categories/transformation-digitale', label: 'Transformation digitale' },
   { href: '/categories/decryptages',           label: 'Décryptages' },
   { href: '/categories/outils-methodes',       label: 'Outils & méthodes' },
-  { href: '/glossaire',                         label: 'Glossaire' },
-  { href: '/ressources',                        label: 'Ressources' },
+  {
+    label: 'Ressources',
+    children: [
+      { href: '/glossaire',  label: 'Glossaire' },
+      { href: '/ressources', label: 'Outils' },
+    ],
+  },
   { href: '/recherche',                         label: 'Recherche' },
   { href: '/newsletter',                        label: 'Newsletter' },
   { href: '/a-propos',                          label: 'À propos' },
@@ -15,6 +24,10 @@ const navLinks = [
 
 function isActive(href: string): boolean {
   return pathname === href || pathname.startsWith(href + '/');
+}
+
+function isGroupActive(children: { href: string }[]): boolean {
+  return children.some(({ href }) => isActive(href));
 }
 ---
 
@@ -26,14 +39,42 @@ function isActive(href: string): boolean {
     </a>
 
     <nav class="main-nav" id="mainNav" aria-label="Navigation principale">
-      {navLinks.map(({ href, label }) => (
-        <a
-          href={href}
-          class={isActive(href) ? 'active' : undefined}
-          aria-current={isActive(href) ? 'page' : undefined}
-        >
-          {label}
-        </a>
+      {navLinks.map((item) => (
+        'children' in item ? (
+          <div
+            class={`nav-dropdown${isGroupActive(item.children) ? ' active' : ''}`}
+          >
+            <button
+              type="button"
+              class="nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {item.label}
+              <span class="nav-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-dropdown-menu" role="menu">
+              {item.children.map(({ href, label }) => (
+                <a
+                  href={href}
+                  role="menuitem"
+                  class={isActive(href) ? 'active' : undefined}
+                  aria-current={isActive(href) ? 'page' : undefined}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            class={isActive(item.href) ? 'active' : undefined}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        )
       ))}
     </nav>
 
@@ -67,6 +108,40 @@ function isActive(href: string): boolean {
       nav.classList.remove('open');
       toggle?.setAttribute('aria-expanded', 'false');
       toggle?.setAttribute('aria-label', 'Ouvrir le menu');
+    });
+  });
+
+  // Menus déroulants (Ressources)
+  const mqMobile = window.matchMedia('(max-width: 980px)');
+
+  nav?.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+    const dToggle = dropdown.querySelector('.nav-dropdown-toggle') as HTMLButtonElement | null;
+    if (!dToggle) return;
+
+    const setOpen = (open: boolean) => {
+      dropdown.classList.toggle('open', open);
+      dToggle.setAttribute('aria-expanded', String(open));
+    };
+
+    // Mobile : accordéon au clic. Desktop : le survol gère l'ouverture via CSS,
+    // mais le clic/clavier reste utile pour l'accessibilité.
+    dToggle.addEventListener('click', () => {
+      setOpen(!dropdown.classList.contains('open'));
+    });
+
+    // Desktop : ferme quand le focus quitte la zone du déroulant
+    dropdown.addEventListener('focusout', (e) => {
+      if (mqMobile.matches) return;
+      const next = (e as FocusEvent).relatedTarget as Node | null;
+      if (!next || !dropdown.contains(next)) setOpen(false);
+    });
+
+    // Échap referme le déroulant
+    dropdown.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Escape') {
+        setOpen(false);
+        dToggle.focus();
+      }
     });
   });
 </script>
@@ -159,6 +234,116 @@ function isActive(href: string): boolean {
     background: var(--terracotta);
   }
 
+  /* ── Menu déroulant (Ressources) ──────────────────────────── */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--sans);
+    font-size: inherit;
+    font-weight: 500;
+    color: var(--ink);
+    opacity: 0.75;
+    transition: opacity 0.18s, color 0.18s;
+    padding: 4px 0;
+    white-space: nowrap;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: inherit;
+  }
+
+  .nav-dropdown-toggle:hover,
+  .nav-dropdown-toggle:focus-visible {
+    opacity: 1;
+    color: var(--terracotta);
+  }
+
+  .nav-dropdown.active .nav-dropdown-toggle {
+    opacity: 1;
+    color: var(--ink);
+  }
+
+  .nav-chevron {
+    font-size: 0.7em;
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-dropdown:hover .nav-chevron,
+  .nav-dropdown.open .nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 10px 28px rgba(27, 31, 42, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    z-index: 10;
+  }
+
+  /* Petite zone tampon pour ne pas perdre le survol entre l'onglet et le menu */
+  .nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu,
+  .nav-dropdown.open .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .nav-dropdown-menu a {
+    display: block;
+    padding: 7px 12px;
+    border-radius: 6px;
+    opacity: 0.85;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s, opacity 0.15s;
+  }
+
+  .nav-dropdown-menu a:hover,
+  .nav-dropdown-menu a:focus-visible {
+    opacity: 1;
+    color: var(--terracotta);
+    background: var(--paper-3);
+  }
+
+  .nav-dropdown-menu a.active {
+    color: var(--terracotta);
+    opacity: 1;
+  }
+
+  .nav-dropdown-menu a.active::after {
+    display: none;
+  }
+
   .menu-toggle {
     display: none;
     width: 32px;
@@ -216,6 +401,59 @@ function isActive(href: string): boolean {
     .main-nav.open a {
       font-size: 15px;
       opacity: 1;
+    }
+
+    /* Déroulant → accordéon sur mobile */
+    .main-nav.open .nav-dropdown {
+      width: 100%;
+    }
+
+    .main-nav.open .nav-dropdown-toggle {
+      font-size: 15px;
+      opacity: 1;
+      padding: 0;
+    }
+
+    .main-nav.open .nav-dropdown-menu {
+      position: static;
+      transform: none;
+      opacity: 1;
+      visibility: hidden;
+      pointer-events: none;
+      display: none;
+      min-width: 0;
+      width: 100%;
+      margin-top: 12px;
+      margin-left: 14px;
+      padding: 0;
+      border: none;
+      border-left: 1px solid var(--line);
+      border-radius: 0;
+      box-shadow: none;
+      background: none;
+      gap: 14px;
+    }
+
+    .main-nav.open .nav-dropdown.open .nav-dropdown-menu {
+      display: flex;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Sur mobile, le survol ne doit pas ouvrir le menu */
+    .main-nav.open .nav-dropdown:hover .nav-dropdown-menu,
+    .main-nav.open .nav-dropdown:focus-within .nav-dropdown-menu {
+      display: none;
+    }
+
+    .main-nav.open .nav-dropdown.open:hover .nav-dropdown-menu,
+    .main-nav.open .nav-dropdown.open:focus-within .nav-dropdown-menu {
+      display: flex;
+    }
+
+    .main-nav.open .nav-dropdown-menu a {
+      padding: 0 0 0 14px;
+      font-size: 14px;
     }
 
     .menu-toggle {

@@ -1,0 +1,543 @@
+═══════════════════════════════════════════════════════════════════
+                            SANKORÉ
+              L'IA AU TRAVAIL, EN AFRIQUE
+═══════════════════════════════════════════════════════════════════
+
+           DOCUMENT DE PRÉSENTATION & BRIEF COMMUNICATION
+
+                          Juin 2026
+
+      Préparé par Gassimou Cissé, fondateur et rédacteur en chef
+                          Conakry, Guinée
+                       contact@sankore.africa
+
+
+═══════════════════════════════════════════════════════════════════
+SOMMAIRE
+═══════════════════════════════════════════════════════════════════
+
+   1. PRÉSENTATION GÉNÉRALE
+   2. POSITIONNEMENT ÉDITORIAL
+   3. IDENTITÉ DE MARQUE
+   4. PUBLIC CIBLE
+   5. CONTENU ACTUEL ET ARCHITECTURE
+   6. RYTHME ÉDITORIAL
+   7. ÉTAT DES LIEUX DES CANAUX
+   8. MISSION DEMANDÉE
+   9. INDICATEURS DE PERFORMANCE
+  10. LIGNES ROUGES ÉDITORIALES
+  11. RESSOURCES MISES À DISPOSITION
+  12. CONTACTS ET MODE DE TRAVAIL
+
+
+═══════════════════════════════════════════════════════════════════
+1. PRÉSENTATION GÉNÉRALE
+═══════════════════════════════════════════════════════════════════
+
+  Sankoré est un média indépendant en langue française qui couvre 
+  l'intelligence artificielle appliquée au travail, la gestion 
+  de projet et la transformation digitale en Afrique francophone.
+
+  Le projet a été lancé en avril 2026 par Gassimou Cissé, chef 
+  de projet et fondateur d'AssoHub, basé à Conakry en Guinée. 
+  Sankoré est aujourd'hui produit en rédaction principalement 
+  individuelle, avec un dispositif d'ouverture aux contributions 
+  externes lancé en mai 2026.
+
+  Le nom Sankoré fait référence à l'université de Sankoré à 
+  Tombouctou, un des plus anciens centres de savoir au monde, 
+  symbole de l'excellence intellectuelle africaine. Ce nom traduit 
+  l'ambition du média : produire une connaissance africaine de 
+  qualité sur les sujets numériques, à hauteur des meilleurs 
+  standards internationaux mais ancrée dans les réalités du 
+  continent.
+
+  Le site est accessible à l'adresse :
+  https://www.sankore.africa
+
+
+═══════════════════════════════════════════════════════════════════
+2. POSITIONNEMENT ÉDITORIAL
+═══════════════════════════════════════════════════════════════════
+
+  TAGLINE OFFICIELLE
+  
+  "L'IA au travail, en Afrique."
+
+  PROPOSITION DE VALEUR
+
+  Sankoré comble un vide éditorial précis : il existe très peu 
+  de médias francophones africains qui traitent sérieusement de 
+  l'IA appliquée au travail, de la gestion de projet et de la 
+  transformation digitale. Les ressources disponibles sur ces 
+  sujets viennent presque exclusivement de Paris, Bruxelles, 
+  Montréal ou des grands cabinets internationaux. Elles ignorent 
+  largement les réalités africaines : connexion instable, budget 
+  limité en devises, paiement en dollars complexe, cadres 
+  réglementaires en construction, fragmentation linguistique du 
+  marché continental.
+
+  Sankoré propose une lecture différente : pragmatique, ancrée 
+  dans le contexte africain, sans hype technologique, fondée sur 
+  des sources vérifiables et utile aux professionnels qui 
+  construisent réellement la transformation digitale du continent.
+
+  QUATRE PILIERS ÉDITORIAUX
+
+  Sankoré structure son contenu autour de quatre piliers 
+  permanents, chacun avec sa catégorie sur le site :
+
+  · IA au travail
+    Comment utiliser concrètement l'intelligence artificielle 
+    dans son métier quotidien. Cas d'usage, prompts, méthodes, 
+    retours d'expérience.
+
+  · Transformation digitale
+    Comment les organisations africaines (entreprises, PME, 
+    administrations, ONG) intègrent le numérique dans leurs 
+    processus. Cas concrets, méthodes éprouvées, erreurs à éviter.
+
+  · Décryptages
+    Analyses de fond sur les politiques publiques, les évolutions 
+    réglementaires, les dynamiques structurelles qui transforment 
+    le paysage de l'IA en Afrique francophone.
+
+  · Outils & méthodes
+    Recommandations pratiques d'outils, de cadres conceptuels et 
+    de méthodes adaptés aux réalités africaines.
+
+
+═══════════════════════════════════════════════════════════════════
+3. IDENTITÉ DE MARQUE
+═══════════════════════════════════════════════════════════════════
+
+  PALETTE DE COULEURS
+
+  Inspirée de l'esthétique "Manuscrit moderne" qui évoque les 
+  bibliothèques du savoir africain ancien revisitées de manière 
+  contemporaine :
+
+    Parchemin     #F4EDE0   (fond principal, ambiance papier ancien)
+    Encre         #1B1F2A   (texte principal, profondeur sobre)
+    Terracotta    #C4502E   (accent chaud, boutons, liens)
+    Or            #B8943B   (touches d'élégance, détails)
+
+  TYPOGRAPHIE
+
+    Instrument Serif   pour les titres (élégance éditoriale)
+    DM Sans            pour le corps de texte (lisibilité moderne)
+
+  TON ET STYLE D'ÉCRITURE
+
+  Le ton de Sankoré est :
+
+  · Pragmatique sans être froid
+  · Sérieux sans être ennuyeux
+  · Engagé sans être militant
+  · Critique sans être agressif
+  · Africain sans être folklorique
+
+  Concrètement, cela se traduit par :
+
+  · Refus du jargon corporate inutile et des superlatifs creux
+  · Refus de la posture paternaliste ("voici comment vous devriez 
+    faire") au profit de l'observation entre pairs ("voici ce qu'on 
+    observe régulièrement, voici pourquoi, voici comment d'autres 
+    font autrement")
+  · Refus du défaitisme ("rien ne marche en Afrique") comme du 
+    triomphalisme ("l'Afrique va bientôt dominer le monde de l'IA")
+  · Valorisation des sources vérifiables, des données chiffrées 
+    sourcées et des cas concrets nommés
+  · Maillage permanent avec les réalités africaines : connexion 
+    instable, budget limité, langues, contextes culturels
+
+
+═══════════════════════════════════════════════════════════════════
+4. PUBLIC CIBLE
+═══════════════════════════════════════════════════════════════════
+
+  CIBLE PRINCIPALE
+
+  Cadres, entrepreneurs et professionnels francophones d'Afrique 
+  de l'Ouest et d'Afrique centrale, âgés de 25 à 45 ans, 
+  généralement basés dans les principales métropoles : Conakry, 
+  Dakar, Abidjan, Lomé, Cotonou, Ouagadougou, Bamako, Yaoundé, 
+  Douala, Brazzaville, Kinshasa, ainsi que les diasporas 
+  francophones en Europe et en Amérique du Nord.
+
+  Quatre sous-segments à servir avec un soin particulier :
+
+  · Les chefs de projet et PMO (publics, privés, ONG)
+  · Les entrepreneurs et fondateurs de startups tech
+  · Les experts en transformation digitale (consultants, 
+    dirigeants, responsables digitalisation)
+  · Les spécialistes en IA générative (praticiens dans leur métier)
+
+  PROFIL LECTEUR TYPE
+
+  Une professionnelle de 32 ans, cheffe de projet dans une ONG 
+  internationale basée à Dakar, en charge du suivi de plusieurs 
+  projets bailleurs. Elle utilise quotidiennement les outils 
+  numériques mais ne se considère pas comme une experte technique. 
+  Elle cherche des contenus pratiques qui lui font gagner du temps, 
+  des analyses sérieuses sur les évolutions de son secteur, et 
+  des perspectives africaines crédibles plutôt que les recettes 
+  importées qui ne correspondent pas à son terrain.
+
+  Cette lectrice attend de Sankoré : qu'on respecte son temps 
+  (pas de remplissage), qu'on respecte son intelligence (pas de 
+  vulgarisation infantilisante), et qu'on respecte son contexte 
+  (pas de conseils inapplicables à Dakar).
+
+
+═══════════════════════════════════════════════════════════════════
+5. CONTENU ACTUEL ET ARCHITECTURE
+═══════════════════════════════════════════════════════════════════
+
+  ARTICLES PUBLIÉS (juin 2026)
+
+  Sankoré compte aujourd'hui 13 articles publiés, organisés par 
+  pilier éditorial.
+
+  IA au travail :
+    · Cinq usages de Claude pour un chef de projet africain
+    · Trois questions à poser à Claude avant une décision difficile
+    · Les 4D de l'AI Fluency (méthode Dakan & Feller)
+    · Guide complet de l'IA générative pour les entreprises 
+      africaines
+
+  Transformation digitale :
+    · La gestion de projet en Afrique : défis, opportunités, 
+      perspectives
+    · Transformation digitale des PME africaines : erreurs, 
+      méthodes, outils
+    · Intégrer l'IA dans une administration publique africaine
+    · Introduire l'IA dans son équipe sans la braquer
+
+  Décryptages :
+    · L'AI Act européen vu d'Afrique francophone
+    · La stratégie continentale de l'Union africaine sur l'IA
+    · Cartographie de l'écosystème IA en Afrique de l'Ouest 
+      francophone
+    · Souveraineté numérique : ce que la coupure de Claude par 
+      les États-Unis change pour l'Afrique
+
+  Outils & méthodes :
+    · Cinq outils d'IA pour travailler efficacement depuis 
+      l'Afrique
+
+  PAGES STRUCTURANTES
+
+  Au-delà des articles, le site dispose de :
+
+  · Une page Glossaire (28 termes essentiels de l'IA expliqués 
+    en français)
+  · Une page Ressources (15 outils utiles aux professionnels 
+    africains, avec grille d'évaluation contextualisée)
+  · Une page Contribuer (appel à contributions ouvert, formulaire 
+    fonctionnel avec accusé de réception automatique)
+  · Une page À propos
+  · Une page Newsletter
+
+  COMMENTAIRES ET ENGAGEMENT
+
+  Chaque article dispose d'une section commentaires via Giscus 
+  (intégration GitHub) et de boutons de partage social (LinkedIn, 
+  Facebook, X, WhatsApp).
+
+
+═══════════════════════════════════════════════════════════════════
+6. RYTHME ÉDITORIAL
+═══════════════════════════════════════════════════════════════════
+
+  Sankoré suit un rythme de publication hebdomadaire structuré :
+
+  · MARDI : Un article long de fond (1500 à 3000 mots) sur l'un 
+    des quatre piliers éditoriaux. Analyse approfondie, cas 
+    concrets, sources vérifiables.
+
+  · VENDREDI : Un article plus court (600 à 1000 mots) — format 
+    pratique, retour d'expérience, question rapide à creuser, 
+    ou réaction à une actualité.
+
+  · DIMANCHE : Newsletter hebdomadaire envoyée à 9h GMT, qui 
+    propose un édito personnel + un récap des articles de la 
+    semaine + une section "à découvrir aussi" mettant en avant 
+    des contenus structurants (glossaire, ressources, articles 
+    de fond plus anciens).
+
+  Ce rythme constitue le cœur du calendrier éditorial autour duquel 
+  toute la stratégie de communication doit s'articuler.
+
+
+═══════════════════════════════════════════════════════════════════
+7. ÉTAT DES LIEUX DES CANAUX
+═══════════════════════════════════════════════════════════════════
+
+  CANAUX EXISTANTS
+
+  · Site web : https://www.sankore.africa
+    13 articles publiés, audience encore confidentielle mais en 
+    croissance, contenu cohérent sur les quatre piliers.
+
+  · Newsletter hebdomadaire (via Brevo)
+    17 inscrits au 16 juin 2026. Publication chaque dimanche à 
+    9h GMT. Liste ID=2 dans Brevo.
+
+  · LinkedIn personnel du fondateur (Gassimou Cissé)
+    Utilisé pour annoncer les articles, partager des réflexions 
+    courtes, lancer les appels à contributions. Pas encore de 
+    page LinkedIn dédiée à Sankoré.
+
+  CANAUX À CRÉER CETTE SEMAINE
+
+  · Page LinkedIn Sankoré
+    À créer pour construire une identité de marque distincte du 
+    profil personnel du fondateur, permettre une animation 
+    structurée, et bâtir une audience dédiée à long terme.
+
+  · Page Facebook Sankoré
+    À créer pour toucher une audience plus large que LinkedIn, 
+    particulièrement en Afrique francophone où Facebook reste 
+    le réseau social le plus utilisé.
+
+  CANAUX À DISCUTER
+
+  · WhatsApp : un canal de diffusion (channel) ou des groupes 
+    thématiques peuvent être envisagés à moyen terme. À discuter 
+    avec la responsable communication.
+
+  · YouTube : pas d'urgence, mais pourrait être pertinent à terme 
+    pour des formats interview courts. À discuter dans le plan.
+
+  · X (Twitter) : présence opportuniste possible, mais moins 
+    prioritaire que LinkedIn et Facebook pour le public africain 
+    francophone. À discuter.
+
+
+═══════════════════════════════════════════════════════════════════
+8. MISSION DEMANDÉE
+═══════════════════════════════════════════════════════════════════
+
+  Ce document constitue le brief pour le démarrage de la mission 
+  de gestion des réseaux sociaux et de communication de Sankoré.
+
+  PÉRIMÈTRE DE LA MISSION
+
+  La mission couvre trois dimensions complémentaires :
+
+  · Animation des réseaux sociaux
+    Création et publication de posts sur les pages LinkedIn et 
+    Facebook de Sankoré, modération des commentaires et réponses 
+    aux interactions, suivi des indicateurs.
+
+  · Stratégie de communication
+    Élaboration d'un calendrier éditorial cohérent qui synchronise 
+    les publications réseaux avec le rythme éditorial du site 
+    (mardi/vendredi/dimanche), proposition de formats récurrents, 
+    stratégie de croissance d'audience.
+
+  · Recommandations stratégiques
+    Suggestions sur les formats à adopter, les heures de 
+    publication, les angles à privilégier, les partenariats 
+    possibles, les actions ponctuelles à mener (campagnes, 
+    collaborations, événements en ligne).
+
+  LIVRABLES ATTENDUS POUR CETTE SEMAINE
+
+  À la fin de la première semaine de mission, trois livrables 
+  sont attendus :
+
+  1. Les deux pages créées et configurées (LinkedIn et Facebook 
+     de Sankoré), avec photos de profil, bannières, descriptions, 
+     liens vers le site et la newsletter, et premiers posts de 
+     lancement.
+
+  2. Un plan de communication écrit qui présente la stratégie 
+     proposée : objectifs trimestriels, formats récurrents 
+     envisagés, recommandations sur la fréquence de publication 
+     par réseau, indicateurs à suivre.
+
+  3. Un calendrier éditorial pour le mois de juillet 2026 qui 
+     détaille les publications semaine par semaine, en cohérence 
+     avec le calendrier de publication du site (chaque article 
+     mardi/vendredi du site doit être amplifié sur LinkedIn et 
+     Facebook avec un format adapté à chaque réseau).
+
+  CADRE DE TRAVAIL
+
+  La mission s'exerce en collaboration étroite avec le fondateur 
+  pour :
+  · Cohérence éditoriale (chaque post doit respecter le ton et 
+    le positionnement de Sankoré)
+  · Validation des publications stratégiques importantes
+  · Synchronisation avec le calendrier de publication du site
+
+  La responsable communication dispose d'une autonomie complète 
+  sur les publications quotidiennes après validation initiale de 
+  son plan et de ses formats récurrents.
+
+
+═══════════════════════════════════════════════════════════════════
+9. INDICATEURS DE PERFORMANCE
+═══════════════════════════════════════════════════════════════════
+
+  Quatre indicateurs à suivre mensuellement :
+
+  · Nombre d'abonnés sur chaque page (LinkedIn et Facebook)
+  · Taux d'engagement moyen par publication (likes, commentaires, 
+    partages rapportés au nombre de vues)
+  · Nombre de clics vers le site Sankoré depuis chaque réseau 
+    (trafic référé)
+  · Nombre d'inscriptions à la newsletter générées par chaque 
+    réseau
+
+  OBJECTIFS RAISONNABLES À 3 MOIS
+
+  Ces objectifs sont indicatifs et à ajuster avec la responsable 
+  communication selon les premières semaines d'observation :
+
+  · LinkedIn : 500 abonnés à la page d'ici septembre 2026
+  · Facebook : 1 000 abonnés à la page d'ici septembre 2026
+  · Newsletter : passer de 17 à 80 inscrits d'ici septembre 2026 
+    (croissance principalement portée par l'audience réseaux)
+
+
+═══════════════════════════════════════════════════════════════════
+10. LIGNES ROUGES ÉDITORIALES
+═══════════════════════════════════════════════════════════════════
+
+  Pour préserver la crédibilité éditoriale de Sankoré, certaines 
+  pratiques de communication sont à éviter absolument.
+
+  À NE JAMAIS FAIRE
+
+  · Publier des contenus sans source vérifiable
+    Toute affirmation chiffrée ou factuelle dans un post doit 
+    pouvoir s'appuyer sur une source précise. En cas de doute, 
+    ne pas publier.
+
+  · Recourir aux superlatifs creux et au hype technologique
+    Pas de "révolutionnaire", "incontournable", "tout le monde 
+    en parle", "la nouvelle IA qui va tout changer". Le ton 
+    Sankoré est mesuré, jamais marketing.
+
+  · Adopter une posture paternaliste ou condescendante
+    Sankoré s'adresse à des professionnels intelligents. Pas 
+    d'explications infantilisantes, pas de ton "voici ce que vous 
+    devriez savoir", pas de moralisation.
+
+  · Reprendre des contenus sans attribution claire
+    Si un post s'appuie sur une étude, une donnée, une citation, 
+    la source doit être nommée explicitement.
+
+  · Prendre position publiquement sur des sujets politiques 
+    polarisants nationaux
+    Sankoré couvre des sujets de politiques publiques numériques 
+    (stratégies IA, régulations) mais ne prend pas position 
+    partisane sur des conflits politiques nationaux non liés à 
+    son périmètre éditorial.
+
+  · Promouvoir explicitement des outils en contrepartie financière 
+    sans transparence
+    Si un partenariat sponsorisé est conclu un jour, il devra être 
+    signalé explicitement dans chaque publication concernée.
+
+  À CULTIVER ACTIVEMENT
+
+  · La transparence éditoriale
+    Sankoré utilise quotidiennement Claude (Anthropic) comme 
+    outil de travail rédactionnel. Cette information est rendue 
+    publique quand elle est pertinente.
+
+  · L'ancrage africain authentique
+    Chaque post doit pouvoir parler à un professionnel de Dakar, 
+    Conakry, Abidjan ou Yaoundé. Les exemples, les données, les 
+    contextes sont africains.
+
+  · L'humilité et l'honnêteté intellectuelle
+    Si une question n'a pas de réponse claire, mieux vaut le dire 
+    que d'inventer. Si une analyse est ouverte au débat, mieux 
+    vaut l'assumer que de la trancher artificiellement.
+
+
+═══════════════════════════════════════════════════════════════════
+11. RESSOURCES MISES À DISPOSITION
+═══════════════════════════════════════════════════════════════════
+
+  Pour faciliter le démarrage de la mission, les ressources 
+  suivantes sont mises à disposition de la responsable 
+  communication :
+
+  · Accès au site sankore.africa pour consulter l'ensemble des 
+    articles publiés et en cours de publication
+
+  · Accès au compte Brevo (newsletter) pour synchroniser les 
+    actions réseaux et email
+
+  · Charte graphique : palette de couleurs et typographies 
+    présentées en section 3 de ce document
+
+  · Logo et déclinaisons : à fournir séparément par le fondateur
+
+  · Identifiants des pages LinkedIn et Facebook une fois créées
+
+  · Accès aux articles MDX originaux si besoin pour préparer des 
+    posts approfondis (à demander au cas par cas)
+
+  · Calendrier de publication des prochains articles (à 
+    communiquer chaque semaine par le fondateur)
+
+
+═══════════════════════════════════════════════════════════════════
+12. CONTACTS ET MODE DE TRAVAIL
+═══════════════════════════════════════════════════════════════════
+
+  CONTACT PRINCIPAL
+
+    Gassimou Cissé
+    Fondateur et rédacteur en chef de Sankoré
+    Email : contact@sankore.africa
+    Localisation : Conakry, Guinée
+
+  MODE DE TRAVAIL PROPOSÉ
+
+  · Point hebdomadaire fixe (30 à 45 minutes en visio) pour 
+    aligner le calendrier éditorial des réseaux avec celui du 
+    site, valider les publications stratégiques et suivre les 
+    indicateurs
+
+  · Échanges réactifs sur WhatsApp pour les questions ponctuelles 
+    et validations urgentes
+
+  · Validation préalable obligatoire pour :
+    - Les publications qui prennent position éditoriale forte
+    - Les partenariats ou collaborations
+    - Toute campagne ponctuelle (concours, lives, etc.)
+
+  · Autonomie complète sur :
+    - Les publications quotidiennes d'amplification des articles 
+      après validation initiale du format type
+    - Les réponses aux commentaires non-conflictuels
+    - La gestion des indicateurs et du planning
+
+
+═══════════════════════════════════════════════════════════════════
+                          REMERCIEMENTS
+
+  Merci d'avoir accepté de rejoindre l'aventure Sankoré à cette 
+  étape charnière. Le travail à mener dans les prochains mois va 
+  déterminer en grande partie la trajectoire d'audience du média, 
+  et donc sa capacité à servir réellement les professionnels 
+  africains francophones qu'il cherche à accompagner.
+
+  N'hésite pas à revenir vers moi sur tous les points qui te 
+  semblent flous ou à approfondir. Ce document est une base de 
+  travail, pas un contrat figé.
+
+  Au plaisir d'avancer ensemble.
+
+  Gassimou Cissé
+  Conakry, juin 2026
+
+═══════════════════════════════════════════════════════════════════

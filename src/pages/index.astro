@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import ArticleCardGrid from '../components/ArticleCardGrid.astro';
 import EssentialCard from '../components/EssentialCard.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
 import WriteWithUsBand from '../components/WriteWithUsBand.astro';
@@ -15,9 +16,13 @@ const sorted = allArticles.sort(
   (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
 );
 
-const featured = sorted.find(a => a.data.featured) ?? sorted[0];
-const recent   = sorted.filter(a => a.slug !== featured?.slug).slice(0, 6);
-// Si pas assez d'articles non-featured, on complète avec le featured
+// Le hero met en avant le dernier article publié
+const featured = sorted[0];
+// Les 3 articles suivants alimentent la grille sous le hero
+const gridArticles = sorted.slice(1, 4);
+// Le reste alimente la section "Articles récents" plus bas (pas de doublon avec le hero ni la grille)
+const recent = sorted.slice(4, 10);
+// Si pas assez d'articles pour remplir toutes les sections, on complète avec l'ensemble trié
 const displayRecent = recent.length > 0 ? recent : sorted.slice(0, 6);
 const essentials = sorted.slice(0, 4);
 
@@ -55,7 +60,7 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
       <div class="hero-inner">
 
         <div class="hero-content">
-          <p class="eyebrow">{heroCat} · Article phare</p>
+          <p class="eyebrow">{heroCat} · À la une</p>
           <h1>{featured.data.title}</h1>
           {featured.data.dek && <p class="dek">{featured.data.dek}</p>}
           <div class="hero-meta">
@@ -77,6 +82,27 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
             ? <img src={featured.data.image} alt={featured.data.title} class="hero-image" loading="eager" fetchpriority="high" decoding="async" width="1200" height="630" />
             : <Illustration type={featured.data.illustration} number={featured.data.illustrationProps?.number} />
           }
+        </div>
+
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════ DERNIERS ARTICLES ═══ -->
+  {gridArticles.length > 0 && (
+    <section class="latest-grid-section">
+      <div class="container">
+
+        <h2 class="latest-grid-title">Derniers <em>articles</em></h2>
+
+        <div class="latest-grid">
+          {gridArticles.map(article => (
+            <ArticleCardGrid article={article} />
+          ))}
+        </div>
+
+        <div class="latest-grid-cta">
+          <a href="/archive" class="view-all">Voir tous les articles →</a>
         </div>
 
       </div>
@@ -171,10 +197,15 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
 <style>
   /* ── Hero ────────────────────────────────────────── */
   .home-hero {
-    padding: 80px 0 60px;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    padding: 64px 0 40px;
+    box-sizing: border-box;
   }
 
   .hero-inner {
+    width: 100%;
     max-width: var(--container);
     margin: 0 auto;
     padding: 0 32px;
@@ -231,7 +262,7 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
 
   .hero-illus {
     aspect-ratio: 4 / 5;
-    max-height: 560px;
+    max-height: min(52vh, 480px);
     background: var(--paper-3);
     position: relative;
     overflow: hidden;
@@ -248,6 +279,37 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  /* ── Derniers articles (grille sous le hero) ─────── */
+  .latest-grid-section {
+    padding: 0 0 72px;
+  }
+
+  .latest-grid-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 144;
+    margin-bottom: 32px;
+    color: var(--ink);
+  }
+
+  .latest-grid-title em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .latest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .latest-grid-cta {
+    text-align: center;
   }
 
   /* ── Articles récents ────────────────────────────── */
@@ -378,9 +440,19 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
       grid-template-columns: repeat(2, 1fr);
       gap: 24px;
     }
+
+    .latest-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
   }
 
   @media (max-width: 880px) {
+    .home-hero {
+      min-height: auto;
+      padding: 48px 0 40px;
+    }
+
     .hero-inner {
       grid-template-columns: 1fr;
       gap: 40px;
@@ -405,6 +477,15 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
       font-size: 26px;
     }
 
+    .latest-grid-title {
+      font-size: 24px;
+    }
+
+    .latest-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
     .essentials-header h2 {
       font-size: 30px;
     }
@@ -412,11 +493,15 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
 
   @media (max-width: 580px) {
     .home-hero {
-      padding: 48px 0 40px;
+      padding: 40px 0 32px;
     }
 
     .hero-inner {
       padding: 0 20px;
+    }
+
+    .hero-illus {
+      max-height: 240px;
     }
 
     .essentials-grid {

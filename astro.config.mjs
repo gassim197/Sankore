@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel/serverless';
 
 export default defineConfig({
-  site: 'https://sankore.africa',
+  site: 'https://www.sankore.africa',
   output: 'hybrid',
   adapter: vercel({
     imageService: true,
@@ -29,7 +29,7 @@ export default defineConfig({
           return { ...item, priority: 1.0, changefreq: 'monthly' };
         }
         // Accueil : priorité maximale + fréquence hebdomadaire
-        if (item.url === 'https://sankore.africa/' || item.url === 'https://sankore.africa') {
+        if (item.url === 'https://www.sankore.africa/' || item.url === 'https://www.sankore.africa') {
           return { ...item, priority: 1.0, changefreq: 'daily' };
         }
         // Pages catégorie : haute priorité

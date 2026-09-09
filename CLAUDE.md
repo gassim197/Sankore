@@ -4,7 +4,7 @@
 
 **Sankoré** est un média indépendant en français, dédié à l'IA appliquée et à la transformation digitale en Afrique francophone.
 
-- **Site** : https://sankore.africa
+- **Site** : https://www.sankore.africa (domaine canonique ; `sankore.africa` sans `www` redirige en 301)
 - **Tagline** : *L'IA au travail, en Afrique*
 - **Cible** : cadres et entrepreneurs francophones 25-35 ans à Conakry, Dakar, Abidjan
 - **Fondateur** : Gassimou Cissé (Conakry, Guinée)
@@ -17,7 +17,7 @@
 - **Contenu** : fichiers `.mdx` dans `src/content/articles/` (pas de CMS au démarrage)
 - **Newsletter** : Brevo (formulaire embarqué via API)
 - **Hébergement** : Vercel (déploiement auto via GitHub)
-- **Domaine** : sankore.africa
+- **Domaine** : www.sankore.africa (canonique)
 
 ## Identité visuelle — non négociable
 
@@ -40,8 +40,7 @@
 
 ### Typographies
 
-- **Display** : `Fraunces` (Google Fonts) — variable, opsz 9-144
-  - Utiliser `font-variation-settings: 'opsz' 144` pour les très grands titres
+- **Display** : `Instrument Serif` (Google Fonts) — regular + italique (`ital@0;1`)
   - Italique pour les emphases dans les titres (mots colorés en terracotta)
 - **Body** : `DM Sans` (Google Fonts) — variable, opsz 9-40
 - **Jamais** : Inter, Roboto, Arial, système
@@ -230,7 +229,7 @@ Flux RSS via `src/pages/rss.xml.ts` couvrant tous les articles non-draft.
 ```
 BREVO_API_KEY=                    # API key Brevo
 BREVO_LIST_ID=                    # ID de la liste newsletter
-PUBLIC_SITE_URL=https://sankore.africa
+PUBLIC_SITE_URL=https://www.sankore.africa
 PUBLIC_GA_ID=                     # Google Analytics 4 (optionnel)
 ```
 
@@ -239,7 +238,7 @@ PUBLIC_GA_ID=                     # Google Analytics 4 (optionnel)
 1. Push sur la branche `main` du repo GitHub `gassimou-cisse/sankore`
 2. Vercel détecte automatiquement le push et redéploie
 3. Variables d'environnement configurées dans Vercel Dashboard
-4. Domaine `sankore.africa` configuré dans Vercel + DNS
+4. Domaine `www.sankore.africa` configuré dans Vercel + DNS (canonique), `sankore.africa` redirige en 301 vers la version `www` via `vercel.json`
 
 ## Ce qu'il NE FAUT PAS faire
 

@@ -20,7 +20,7 @@ const {
   type = 'website',
 } = Astro.props;
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://sankore.africa';
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://www.sankore.africa';
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 ---

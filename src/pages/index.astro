@@ -28,6 +28,7 @@ const essentials = sorted.slice(0, 4);
 
 const heroMinutes = featured ? readingTime(featured.body) : 0;
 const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featured.data.category) : '';
+const siteUrl     = import.meta.env.PUBLIC_SITE_URL ?? 'https://www.sankore.africa';
 ---
 
 <BaseLayout
@@ -38,18 +39,18 @@ const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featu
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Sankoré',
-    url: 'https://sankore.africa',
+    url: siteUrl,
     description: "Un média indépendant, en français, pour les cadres et entrepreneurs ouest-africains qui veulent que l'intelligence artificielle serve leur métier.",
     inLanguage: 'fr',
     publisher: {
       '@type': 'Organization',
       name: 'Sankoré',
-      url: 'https://sankore.africa',
-      logo: { '@type': 'ImageObject', url: 'https://sankore.africa/favicon.svg' },
+      url: siteUrl,
+      logo: { '@type': 'ImageObject', url: `${siteUrl}/favicon.svg` },
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: { '@type': 'EntryPoint', urlTemplate: 'https://sankore.africa/archive?q={search_term_string}' },
+      target: { '@type': 'EntryPoint', urlTemplate: `${siteUrl}/archive?q={search_term_string}` },
       'query-input': 'required name=search_term_string',
     },
   })} />

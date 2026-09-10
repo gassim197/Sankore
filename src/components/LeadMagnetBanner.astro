@@ -1,0 +1,267 @@
+---
+/**
+ * LeadMagnetBanner — bannière d'inscription en haut de l'accueil, offrant
+ * le guide PDF gratuit en échange d'une inscription newsletter.
+ * Soumission via /api/subscribe (même endpoint et même liste Brevo que
+ * le formulaire de /newsletter et NewsletterInline/NewsletterBand) :
+ * l'automatisation Brevo se charge d'envoyer le lien du guide par e-mail.
+ */
+---
+
+<section class="lead-banner" aria-labelledby="leadBannerTitle">
+  <div class="lead-banner-inner">
+
+    <div class="lead-banner-text">
+      <p class="lead-banner-eyebrow">Guide gratuit</p>
+      <h2 class="lead-banner-title" id="leadBannerTitle">
+        5 façons concrètes d'utiliser <em>l'IA</em> dans votre travail
+      </h2>
+      <p class="lead-banner-sub">
+        Recevez notre guide pratique gratuit + la newsletter Sankoré chaque dimanche.
+      </p>
+    </div>
+
+    <div class="lead-banner-formwrap">
+      <form class="lead-banner-form" id="leadBannerForm" novalidate>
+        <label class="lead-banner-label" for="leadBannerEmail">Votre adresse e-mail</label>
+        <div class="lead-banner-row">
+          <input
+            type="email"
+            id="leadBannerEmail"
+            name="email"
+            placeholder="votre@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit">Recevoir le guide</button>
+        </div>
+      </form>
+
+      <p class="lead-banner-error" id="leadBannerError" role="alert" aria-live="assertive"></p>
+
+      <p class="lead-banner-success" id="leadBannerSuccess" role="status" aria-live="polite">
+        Merci ! Vérifiez votre boîte mail, votre guide arrive.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const form    = document.getElementById('leadBannerForm')    as HTMLFormElement | null;
+  const success = document.getElementById('leadBannerSuccess');
+  const errorEl = document.getElementById('leadBannerError');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    if (!email) return;
+
+    const btn = form.querySelector('button') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Envoi…';
+    if (errorEl) errorEl.style.display = 'none';
+
+    try {
+      const res  = await fetch('/api/subscribe', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Recevoir le guide';
+        if (errorEl) {
+          errorEl.textContent = data.error ?? 'Une erreur est survenue.';
+          errorEl.style.display = 'block';
+        }
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Recevoir le guide';
+      if (errorEl) {
+        errorEl.textContent = 'Connexion impossible. Vérifiez votre réseau.';
+        errorEl.style.display = 'block';
+      }
+    }
+  });
+</script>
+
+<style>
+  .lead-banner {
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+  }
+
+  .lead-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+  }
+
+  .lead-banner-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 26px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .lead-banner-text {
+    flex: 1 1 420px;
+    min-width: 0;
+  }
+
+  .lead-banner-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .lead-banner-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--paper);
+    margin-bottom: 6px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .lead-banner-title em {
+    font-style: italic;
+    color: var(--terracotta-soft);
+  }
+
+  .lead-banner-sub {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: rgba(244, 237, 224, 0.7);
+    max-width: 480px;
+  }
+
+  .lead-banner-formwrap {
+    flex: 0 1 380px;
+    max-width: 380px;
+    width: 100%;
+  }
+
+  /* Label présent pour les lecteurs d'écran, masqué visuellement */
+  .lead-banner-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .lead-banner-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .lead-banner-row input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    font-family: var(--sans);
+    font-size: 14px;
+    background: rgba(244, 237, 224, 0.08);
+    border: 1px solid rgba(244, 237, 224, 0.18);
+    border-radius: 8px;
+    color: var(--paper);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .lead-banner-row input::placeholder { color: rgba(244, 237, 224, 0.4); }
+  .lead-banner-row input:focus        { border-color: var(--gold); }
+
+  .lead-banner-row button {
+    background: var(--terracotta);
+    color: #ffffff;
+    padding: 12px 20px;
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .lead-banner-row button:hover    { background: var(--terracotta-deep); }
+  .lead-banner-row button:disabled { opacity: 0.6; cursor: wait; }
+
+  .lead-banner-error {
+    display: none;
+    font-family: var(--sans);
+    font-size: 12.5px;
+    color: #e8836a;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .lead-banner-success {
+    display: none;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 880px) {
+    .lead-banner-inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 18px;
+      padding: 22px 24px;
+    }
+
+    .lead-banner-formwrap {
+      flex: none;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .lead-banner-inner {
+      padding: 18px 20px;
+    }
+
+    .lead-banner-title { font-size: 19px; }
+    .lead-banner-sub   { font-size: 12.5px; }
+
+    .lead-banner-row {
+      flex-direction: column;
+    }
+
+    .lead-banner-row input,
+    .lead-banner-row button {
+      width: 100%;
+      padding: 13px 14px;
+    }
+  }
+</style>

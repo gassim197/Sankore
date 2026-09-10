@@ -6,6 +6,7 @@ import ArticleCardGrid from '../components/ArticleCardGrid.astro';
 import EssentialCard from '../components/EssentialCard.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
 import WriteWithUsBand from '../components/WriteWithUsBand.astro';
+import LeadMagnetBanner from '../components/LeadMagnetBanner.astro';
 import Illustration from '../components/Illustration.astro';
 import { formatDate } from '../utils/formatDate';
 import { readingTime } from '../utils/readingTime';
@@ -54,6 +55,9 @@ const siteUrl     = import.meta.env.PUBLIC_SITE_URL ?? 'https://www.sankore.afri
       'query-input': 'required name=search_term_string',
     },
   })} />
+
+  <!-- ══════════════════════════════════════ BANNIÈRE LEAD MAGNET ═══ -->
+  <LeadMagnetBanner />
 
   <!-- ═══════════════════════════════════════════════ HERO ═══ -->
   {featured && (

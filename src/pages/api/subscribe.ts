@@ -30,6 +30,9 @@ export const POST: APIRoute = async ({ request }) => {
     typeof body.nom      === 'string' ? body.nom :
     typeof body.lastname === 'string' ? body.lastname : ''
   ).trim();
+  // Identifie le formulaire d'origine (bannière, page newsletter, encart article…)
+  // pour pouvoir segmenter/déboguer côté Brevo.
+  const source = typeof body.source === 'string' ? body.source.trim().slice(0, 60) : '';
 
   const apiKey    = import.meta.env.BREVO_API_KEY;
   const listIdRaw = import.meta.env.BREVO_LIST_ID;
@@ -54,22 +57,43 @@ export const POST: APIRoute = async ({ request }) => {
   const attributes: Record<string, string> = {};
   if (prenom) attributes['FIRSTNAME'] = prenom;
   if (nom)    attributes['LASTNAME']  = nom;
+  if (source) attributes['SOURCE']    = source;
   if (Object.keys(attributes).length) payload.attributes = attributes;
 
-  let brevoRes: Response;
-  try {
-    brevoRes = await fetch('https://api.brevo.com/v3/contacts', {
+  const callBrevo = (p: Record<string, unknown>) =>
+    fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
         'api-key': apiKey,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(p),
     });
+
+  let brevoRes: Response;
+  try {
+    brevoRes = await callBrevo(payload);
   } catch (err) {
     console.error('[subscribe] Fetch Brevo échoué:', err);
     return respond({ ok: false, error: 'Service temporairement indisponible.' }, 503);
+  }
+
+  // Si un attribut personnalisé (ex. SOURCE) n'existe pas encore côté Brevo,
+  // on retente sans attributs plutôt que de bloquer l'inscription.
+  if (brevoRes.status === 400 && payload.attributes) {
+    let attrErr: { code?: string; message?: string } = {};
+    try { attrErr = await brevoRes.clone().json(); } catch { /* ignore */ }
+    if (attrErr.code === 'invalid_parameter' && /attribute/i.test(attrErr.message ?? '')) {
+      console.error('[subscribe] Attribut Brevo invalide, nouvelle tentative sans attributs:', attrErr);
+      try {
+        const { attributes: _attrs, ...payloadWithoutAttrs } = payload;
+        brevoRes = await callBrevo(payloadWithoutAttrs);
+      } catch (err) {
+        console.error('[subscribe] Fetch Brevo échoué (retry):', err);
+        return respond({ ok: false, error: 'Service temporairement indisponible.' }, 503);
+      }
+    }
   }
 
   // 201 = créé, 204 = mis à jour (updateEnabled)

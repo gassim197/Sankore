@@ -10,9 +10,11 @@ interface SubscribeFormOptions {
   successId: string;
   errorId: string;
   idleLabel: string;
+  /** Identifie le formulaire d'origine pour Brevo (attribut SOURCE), ex. "banniere_accueil". */
+  source: string;
 }
 
-export function initSubscribeForm({ formId, successId, errorId, idleLabel }: SubscribeFormOptions): void {
+export function initSubscribeForm({ formId, successId, errorId, idleLabel, source }: SubscribeFormOptions): void {
   const form    = document.getElementById(formId) as HTMLFormElement | null;
   const success = document.getElementById(successId);
   const errorEl = document.getElementById(errorId);
@@ -35,7 +37,7 @@ export function initSubscribeForm({ formId, successId, errorId, idleLabel }: Sub
       const res  = await fetch('/api/subscribe', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ email, prenom, nom }),
+        body:    JSON.stringify({ email, prenom, nom, source }),
       });
       const data = await res.json();
 

@@ -133,50 +133,13 @@ const featuredArticles = FEATURED_SLUGS
 </BaseLayout>
 
 <script>
-  const form    = document.getElementById('nlForm')    as HTMLFormElement | null;
-  const success = document.getElementById('nlSuccess');
-  const errorEl = document.getElementById('nlError');
+  import { initSubscribeForm } from '../scripts/subscribeForm';
 
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const fd       = new FormData(form);
-    const email    = (fd.get('email')     as string ?? '').trim();
-    const prenom   = (fd.get('firstname') as string ?? '').trim();
-    const nom      = (fd.get('lastname')  as string ?? '').trim();
-    if (!email) return;
-
-    const btn = form.querySelector('button') as HTMLButtonElement;
-    btn.disabled = true;
-    btn.textContent = 'Envoi…';
-    if (errorEl) errorEl.style.display = 'none';
-
-    try {
-      const res  = await fetch('/api/subscribe', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ email, prenom, nom }),
-      });
-      const data = await res.json();
-
-      if (data.ok) {
-        form.style.display = 'none';
-        if (success) success.style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.textContent = "Je m'abonne";
-        if (errorEl) {
-          errorEl.textContent = data.error ?? 'Une erreur est survenue.';
-          errorEl.style.display = 'block';
-        }
-      }
-    } catch {
-      btn.disabled = false;
-      btn.textContent = "Je m'abonne";
-      if (errorEl) {
-        errorEl.textContent = 'Connexion impossible. Vérifiez votre réseau.';
-        errorEl.style.display = 'block';
-      }
-    }
+  initSubscribeForm({
+    formId:    'nlForm',
+    successId: 'nlSuccess',
+    errorId:   'nlError',
+    idleLabel: "Je m'abonne",
   });
 </script>
 

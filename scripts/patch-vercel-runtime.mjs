@@ -24,8 +24,8 @@ const configs = findConfigs('.vercel/output/functions');
 for (const file of configs) {
   const config = JSON.parse(readFileSync(file, 'utf8'));
   if (config.runtime === 'nodejs18.x') {
-    config.runtime = 'nodejs20.x';
+    config.runtime = 'nodejs24.x';
     writeFileSync(file, JSON.stringify(config, null, '\t'));
-    console.log(`[patch-vercel-runtime] ${file}: nodejs18.x → nodejs20.x`);
+    console.log(`[patch-vercel-runtime] ${file}: nodejs18.x → nodejs24.x`);
   }
 }

@@ -20,7 +20,8 @@ const {
   type = 'website',
 } = Astro.props;
 
-const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://www.sankore.africa';
+// Même origine que le sitemap et le flux RSS, indépendamment des variables Vercel.
+const siteUrl = Astro.site!.origin;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 ---

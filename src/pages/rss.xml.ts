@@ -15,11 +15,12 @@ export async function GET(context: APIContext) {
       'Un média indépendant, en français, pour les cadres et entrepreneurs ' +
       "ouest-africains qui veulent que l'intelligence artificielle serve leur métier.",
     site: context.site!,
+    trailingSlash: false,
     items: sorted.map(article => ({
       title:       article.data.title,
       pubDate:     article.data.publishedAt,
       description: article.data.excerpt,
-      link:        `/articles/${article.slug}/`,
+      link:        `/articles/${article.slug}`,
       categories:  [article.data.category],
       author:      article.data.author.name,
       ...(article.data.updatedAt && {

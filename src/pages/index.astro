@@ -29,7 +29,7 @@ const essentials = sorted.slice(0, 4);
 
 const heroMinutes = featured ? readingTime(featured.body) : 0;
 const heroCat     = featured ? (CATEGORY_LABELS[featured.data.category] ?? featured.data.category) : '';
-const siteUrl     = import.meta.env.PUBLIC_SITE_URL ?? 'https://www.sankore.africa';
+const siteUrl     = Astro.site!.origin;
 ---
 
 <BaseLayout

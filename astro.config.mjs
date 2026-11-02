@@ -6,6 +6,7 @@ import vercel from '@astrojs/vercel/serverless';
 
 export default defineConfig({
   site: 'https://www.sankore.africa',
+  trailingSlash: 'never',
   output: 'hybrid',
   adapter: vercel({
     imageService: true,

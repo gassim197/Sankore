@@ -4,7 +4,7 @@
 
 **Sankoré** est un média indépendant en français, dédié à l'IA appliquée et à la transformation digitale en Afrique francophone.
 
-- **Site** : https://www.sankore.africa (domaine canonique ; `sankore.africa` sans `www` redirige en 301)
+- **Site** : https://www.sankore.africa (domaine canonique ; `sankore.africa` sans `www` doit rediriger en 308)
 - **Tagline** : *L'IA au travail, en Afrique*
 - **Cible** : cadres et entrepreneurs francophones 25-35 ans à Conakry, Dakar, Abidjan
 - **Fondateur** : Gassimou Cissé (Conakry, Guinée)
@@ -206,6 +206,11 @@ Chaque page doit fournir :
 Sitemap automatique via `@astrojs/sitemap`.
 Flux RSS via `src/pages/rss.xml.ts` couvrant tous les articles non-draft.
 
+L'origine officielle est définie uniquement par `site` dans `astro.config.mjs`.
+Les pages utilisent `Astro.site`, sans surcharge `PUBLIC_SITE_URL` dans Vercel.
+Les URL de pages sont sans slash final, sauf la racine (`trailingSlash: 'never'`).
+Conserver cette convention dans le sitemap, le RSS et les liens internes.
+
 ## Performance — exigences
 
 - Tous les SVG d'illustration sont **inline** (pas d'images externes)
@@ -229,7 +234,6 @@ Flux RSS via `src/pages/rss.xml.ts` couvrant tous les articles non-draft.
 ```
 BREVO_API_KEY=                    # API key Brevo
 BREVO_LIST_ID=                    # ID de la liste newsletter
-PUBLIC_SITE_URL=https://www.sankore.africa
 PUBLIC_GA_ID=                     # Google Analytics 4 (optionnel)
 ```
 
@@ -238,7 +242,7 @@ PUBLIC_GA_ID=                     # Google Analytics 4 (optionnel)
 1. Push sur la branche `main` du repo GitHub `gassimou-cisse/sankore`
 2. Vercel détecte automatiquement le push et redéploie
 3. Variables d'environnement configurées dans Vercel Dashboard
-4. Domaine `www.sankore.africa` configuré dans Vercel + DNS (canonique), `sankore.africa` redirige en 301 vers la version `www` via `vercel.json`
+4. Domaine `www.sankore.africa` configuré dans Vercel + DNS (canonique), `sankore.africa` redirige en 308 vers la version `www` via `vercel.json`. Dans les réglages Domains de Vercel, choisir également `308 Permanent Redirect` pour la redirection de domaine.
 
 ## Ce qu'il NE FAUT PAS faire
 

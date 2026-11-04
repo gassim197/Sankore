@@ -28,5 +28,9 @@
     "@resvg/resvg-js": "^2.6.2",
     "pagefind": "^1.5.2",
     "typescript": "^5.6.0"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true,
+    "sharp@0.33.5": true
   }
 }
